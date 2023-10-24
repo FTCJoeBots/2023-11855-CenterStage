@@ -7,7 +7,6 @@ public class bucketRC {
     public static double BUCKETEND = .6;
 
     Servo bucketservo = null ;
-
     public void init (){
         HardwareMap hwMap = null;
         bucketservo=hwMap.get(Servo.class,"bucketservo");
@@ -16,6 +15,7 @@ public class bucketRC {
 
     public void bucketempty() {
 bucketservo.setPosition(BUCKETSTART);
+//
     }
 
     public void bucketfull() {
