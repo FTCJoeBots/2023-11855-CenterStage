@@ -10,9 +10,8 @@ public class Lift {
 
     DcMotor LiftMotor = null;
 
-    public void init () {
+    public void init (HardwareMap hwmap) {
 
-        HardwareMap hwmap = null;
         LiftMotor = hwmap.get(DcMotor.class,"Lift_Motor");
 
         LiftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -26,6 +25,21 @@ public class Lift {
 
     public void LiftUp (){
         LiftMotor.setTargetPosition(LIFTMAX);
+        LiftMotor.setPower(LIFTSPEED);
+
+    }
+
+    public void LiftManualUp (){
+        int CurrentPosition = LiftMotor.getCurrentPosition();
+        int NewPosition = CurrentPosition + 30 ;
+        LiftMotor.setTargetPosition(NewPosition);
+        LiftMotor.setPower(LIFTSPEED);
+    }
+
+    public void LiftManualDown (){
+        int CurrentPosition = LiftMotor.getCurrentPosition();
+        int NewPosition = CurrentPosition - 30;
+        LiftMotor.setTargetPosition(NewPosition);
         LiftMotor.setPower(LIFTSPEED);
 
     }
