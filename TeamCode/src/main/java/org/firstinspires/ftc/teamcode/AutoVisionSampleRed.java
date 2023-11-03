@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -17,11 +16,11 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 @Autonomous(name="Vision Sample", group="Pushbot")
 
-public class AutoVisionSample extends LinearOpMode {
+public class AutoVisionSampleRed extends LinearOpMode {
 
     /* Declare OpMode members. */
     OpenCvCamera webcam;
-    ObjectDetectorBlue OD = new ObjectDetectorBlue(telemetry);
+    ObjectDetectorRed ODR = new ObjectDetectorRed(telemetry);
     private ElapsedTime     runtime = new ElapsedTime();
 
 
@@ -32,7 +31,7 @@ public class AutoVisionSample extends LinearOpMode {
         telemetry.update();
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        webcam.setPipeline(OD);
+        webcam.setPipeline(ODR);
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
         {
             @Override
@@ -64,18 +63,18 @@ public class AutoVisionSample extends LinearOpMode {
         //  Or do this right after we press start
         //
         while(!isStarted()) {
-            if (OD.getIntLocation() == 2) {
-                telemetry.addData("Location", OD.getIntLocation());
+            if (ODR.getIntLocation() == 2) {
+                telemetry.addData("Location", ODR.getIntLocation());
                 telemetry.addLine("RIGHT");
                 telemetry.update();
                 sleep(30);
-            } else if (OD.getIntLocation() == 1) {
+            } else if (ODR.getIntLocation() == 1) {
                 telemetry.addLine("CENTER");
                 telemetry.update();
                 sleep(30);
 
             } else {
-                telemetry.addData("Location", OD.getIntLocation());
+                telemetry.addData("Location", ODR.getIntLocation());
                 telemetry.addLine("LEFT");
                 telemetry.update();
                 sleep(30);
