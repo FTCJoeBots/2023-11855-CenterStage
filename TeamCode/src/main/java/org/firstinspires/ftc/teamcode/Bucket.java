@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.ServoConfigurationType;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -32,31 +33,21 @@ public class Bucket {
     private static final double ClosedBucketGate = 0;
     private static final double OpenBucketGate = 0.5;
     static boolean BucketGateClosedB = false;
-    static Servo Bucket ;
+
     static Servo BucketGate ;
 
     public void init(HardwareMap hwMap) {
-       // Bucket = hwMap.get(Servo.class,"Bucket");
-        BucketGate = hwMap.get(Servo.class,"BucketGate");
 
+        BucketGate = hwMap.get(Servo.class,"BucketGate");
         //Bucket.setPosition(IntakeSide);
         BucketGate.setPosition(1);
 
     }
 
+
+
     //Bucket
-    public void BucketSet(int BucketPos) {
 
-        switch(BucketPos){
-            case 2:
-                Bucket.setPosition(IntakeSide);
-                break;
-            case 1: // This is first
-                Bucket.setPosition(OutputSide);
-                break;
-
-        }
-    }
 
     public void bucketMore(){
 
@@ -70,28 +61,6 @@ public class Bucket {
 
     }
 
-
-    public static void BucketSet(){
-        Bucket.setPosition(IntakeSide);
-        BucketInB=true;
-    }
-
-    public static void BucketOut(){
-        Bucket.setPosition(OutputSide);
-        BucketInB=true;
-    }
-    public static void BucketIn(){
-        Bucket.setPosition(IntakeSide);
-        BucketInB=false;
-    }
-    public static void ToggleBucket(){
-        if(BucketInB){
-            BucketIn();
-        }else{
-            BucketOut();
-        }
-    }
-    public static double getBucketPosition(){ return Bucket.getPosition(); }
 
 
     //BucketGate
