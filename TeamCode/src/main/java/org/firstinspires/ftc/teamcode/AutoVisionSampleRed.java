@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -14,12 +15,12 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
  *
  */
 
-@Autonomous(name="Vision Sample", group="Pushbot")
+@Autonomous(name="Vision Sample red", group="Pushbot")
 
 public class AutoVisionSampleRed extends LinearOpMode {
 
     /* Declare OpMode members. */
-    OpenCvCamera webcam;
+    OpenCvCamera webcam2;
     ObjectDetectorRed ODR = new ObjectDetectorRed(telemetry);
     private ElapsedTime     runtime = new ElapsedTime();
 
@@ -30,9 +31,9 @@ public class AutoVisionSampleRed extends LinearOpMode {
         telemetry.addLine("Press > to Start");
         telemetry.update();
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        webcam.setPipeline(ODR);
-        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
+        webcam2 = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        webcam2.setPipeline(ODR);
+        webcam2.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
         {
             @Override
             public void onOpened()
@@ -48,7 +49,7 @@ public class AutoVisionSampleRed extends LinearOpMode {
                  * For a rear facing camera or a webcam, rotation is defined assuming the camera is facing
                  * away from the user.
                  */
-                webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
+                webcam2.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
             }
             @Override
             public void onError(int errorCode)

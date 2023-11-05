@@ -13,8 +13,8 @@ public class JoeyIntake {
 
     DcMotor joey;
 
-    public double joeysSpeed = 0.75;
-    public double joeysReverseSpeed = -0.25;
+    public double joeysSpeed = 1;
+    public double joeysReverseSpeed = -0.75;
 
     public double joeysAutoDrop = 0.25;
 

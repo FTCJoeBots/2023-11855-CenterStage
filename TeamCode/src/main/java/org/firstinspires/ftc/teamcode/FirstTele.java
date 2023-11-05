@@ -25,9 +25,15 @@ public class FirstTele extends LinearOpMode{
         MecanumDrive drive =new MecanumDrive(hardwareMap,new Pose2d(0,0,0));
         JoeyIntake joey = new JoeyIntake();
         Lift lift = new Lift();
+        PullUpArm PullUp = new PullUpArm();
+        Bucket Bucket = new Bucket();
 
         joey.init(hardwareMap);
         lift.init(hardwareMap);
+        PullUp.init(hardwareMap);
+        Bucket.init(hardwareMap);
+
+        telemetry.speak("Hello Divyang");
 
         waitForStart();
 
@@ -81,8 +87,48 @@ public class FirstTele extends LinearOpMode{
                 lift.contorller();
             }
 
+            if(gamepad2.right_bumper){
+                PullUp.ManualPullUp();
+                PullUp.contorller();
+            }
+
+            if(gamepad2.left_bumper){
+                PullUp.ManualPullDown();
+                PullUp.contorller();
+            }
+
+            if(gamepad2.a){
+                lift.RightLift_To_Position(0);
+                lift.LeftLift_To_Position(0);
+                lift.contorller();
+            }
+
+            if(gamepad2.b){
+                lift.RightLift_To_Position(1);
+                lift.LeftLift_To_Position(1);
+                lift.contorller();
+            }
+            if(gamepad2.x){
+                lift.RightLift_To_Position(2);
+                lift.LeftLift_To_Position(2);
+                lift.contorller();
+            }
+            if(gamepad2.y){
+                lift.RightLift_To_Position(3);
+                lift.LeftLift_To_Position(3);
+                lift.contorller();
+            }
+
+            if(gamepad2.right_trigger>=0.5){
+                Bucket.BucketGateOut();
+            }else{
+                Bucket.BucketGateIn();
+            }
+
+
             telemetry.addData("Left Lift",lift.LeftLift.getCurrentPosition());
             telemetry.addData("Right Lift",lift.RightLift.getCurrentPosition());
+
 telemetry.update();
 
 

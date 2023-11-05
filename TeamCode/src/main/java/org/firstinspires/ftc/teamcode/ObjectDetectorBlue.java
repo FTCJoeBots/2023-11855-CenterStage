@@ -24,15 +24,15 @@ public class ObjectDetectorBlue extends OpenCvPipeline {
     //draws rectangles(make sure x max is 320 and y is 240(in ObjectDetectAuto webcam.startstreaming))
     //Rectangles for detecting if object of a certain color is in it and what percentage it is at
     static final Rect LEFT_ROI = new Rect(
-            new Point(175, 120),
-            new Point(260, 245)
+            new Point(0, 80),
+            new Point(100, 220)
             //new Point(0, 120),
             //new Point(130, 300)
 
     );
     static final Rect RIGHT_ROI = new Rect(
-            new Point(480, 140),
-            new Point(610, 315));
+            new Point(325, 75),
+            new Point(475, 225));
     // new Point(360, 120),
     //new Point(490, 300));
 
@@ -104,21 +104,21 @@ public class ObjectDetectorBlue extends OpenCvPipeline {
             //if element not found, it say not found
             location = Location.NOT_FOUND;
             IntLocation=0;
-            //  telemetry.addData("Element Location", "not found; on left side");
+              telemetry.addData("Right Side", "Element Location");
         }
         else if (elementLeft || blueelementLeft) {
             //if 40% or more of element in left rectangle, it say left
             location = Location.LEFT;
             IntLocation=1;
-            //telemetry.addData("Element Location", "middle");
+            telemetry.addData("Element Location", "LEFT SIDE");
         }
         else {
             //if 40% or more of element in right rectangle, it say right
             location = Location.RIGHT;
             IntLocation=2;
-            // telemetry.addData("Element Location", "right");
+             telemetry.addData("Element Location", "Center");
         }
-        //telemetry.update();
+        telemetry.update();
 
         //turns everything that not the color we look for into black
         Imgproc.cvtColor(bluemat,mat, Imgproc.COLOR_GRAY2RGB);

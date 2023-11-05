@@ -12,19 +12,19 @@ public class Lift {
     DcMotor LeftLift;
     DcMotor RightLift;
 
-    int LIFTMAXIMUM = 3000;
-    int LIFTMINIMMUM = 0;
+    int LIFTMAXIMUM = -2500;
+    int LIFTMINIMMUM = 30;
     int lift_target_position=0;
 
-    int Rightlow = 1200;
-    int Rightmed = 1750;
-    int Righthigh = 2300;
+    int Rightlow = -783;
+    int Rightmed = -1490;
+    int Righthigh = -2246;
 
-    int LeftLow = -1200;
+    int LeftLow = -783;
 
-    int Leftmed = -1750;
+    int Leftmed = -1490;
 
-    int Lefthigh = -2300;
+    int Lefthigh = -2246;
     public double getLiftPositionRight(){ return RightLift.getCurrentPosition();}
     public double getLiftPositionLeft(){return LeftLift.getCurrentPosition();}
 
@@ -46,15 +46,15 @@ public class Lift {
     public void contorller(){
         LeftLift.setTargetPosition(lift_target_position);
         LeftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        LeftLift.setPower(0.6);
+        LeftLift.setPower(0.3);
         RightLift.setTargetPosition(lift_target_position);
         RightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        RightLift.setPower(0.6);
+        RightLift.setPower(0.3);
     }
 
     public void raiseLiftManual(){
-        lift_target_position = LeftLift.getCurrentPosition()-100;
-        lift_target_position = RightLift.getCurrentPosition()+100;
+        lift_target_position = LeftLift.getCurrentPosition()+100;
+        lift_target_position = RightLift.getCurrentPosition()-100;
     }
 
     public void lowerLiftManual(){
@@ -86,13 +86,13 @@ public class Lift {
                 lift_target_position = LIFTMINIMMUM;
                 break;
             case 1:
-                lift_target_position = Rightlow;
+                lift_target_position = LeftLow;
                 break;
             case 2:
-                lift_target_position = Rightmed;
+                lift_target_position = Leftmed;
                 break;
             case 3:
-                lift_target_position = Righthigh;
+                lift_target_position = Lefthigh;
                 break;
 
 

@@ -12,7 +12,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 public class ObjectDetectorRed extends OpenCvPipeline {
     Telemetry telemetry;
     Mat mat = new Mat();
-    Mat bluemat = new Mat();
+
     public enum Location {
         LEFT,
         RIGHT,
@@ -24,15 +24,15 @@ public class ObjectDetectorRed extends OpenCvPipeline {
     //draws rectangles(make sure x max is 320 and y is 240(in ObjectDetectAuto webcam.startstreaming))
     //Rectangles for detecting if object of a certain color is in it and what percentage it is at
     static final Rect LEFT_ROI = new Rect(
-            new Point(10, 85),
-            new Point(175, 300)
+            new Point(0, 70),
+            new Point(80, 245)
             //new Point(0, 120),
             //new Point(130, 300)
 
     );
     static final Rect RIGHT_ROI = new Rect(
-            new Point(480, 140),
-            new Point(610, 315));
+            new Point(350, 70),
+            new Point(430, 220));
     // new Point(360, 120),
     //new Point(490, 300));
 
@@ -47,14 +47,12 @@ public class ObjectDetectorRed extends OpenCvPipeline {
     public Mat processFrame(Mat input) {
         //color stuff
         Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
-        Imgproc.cvtColor(input, bluemat, Imgproc.COLOR_RGB2HSV);
+        Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
         //Scalar lowHSV = new Scalar(23, 50, 70);
         //Scalar highHSV = new Scalar(32, 255, 255);
-        Scalar bluelowHSV = new Scalar(90,0 , 0);   //s was 5
-        Scalar bluehighHSV = new Scalar(250, 2555, 255);
 
-        Scalar lowHSV = new Scalar(0, 50, 50);
-        Scalar highHSV = new Scalar(10, 2555, 255);
+        Scalar lowHSV = new Scalar(25, 0, 0);
+        Scalar highHSV = new Scalar(200, 255, 255);
 
 
 
@@ -64,25 +62,17 @@ public class ObjectDetectorRed extends OpenCvPipeline {
 
         Core.inRange(mat, lowHSV, highHSV, mat);
 
-        Core.inRange(bluemat, bluelowHSV, bluehighHSV, bluemat);
-
         Mat left = mat.submat(LEFT_ROI);
         Mat right = mat.submat(RIGHT_ROI);
 
-        Mat blueleft = bluemat.submat(LEFT_ROI);
-        Mat blueright = bluemat.submat(RIGHT_ROI);
 
         double leftValue = Core.sumElems(left).val[0] / LEFT_ROI.area() / 255;
         double rightValue = Core.sumElems(right).val[0] / RIGHT_ROI.area() / 255;
 
-        double blueleftValue = Core.sumElems(blueleft).val[0] / LEFT_ROI.area() / 255;
-        double bluerightValue = Core.sumElems(blueright).val[0] / RIGHT_ROI.area() / 255;
 
         left.release();
         right.release();
 
-        blueleft.release();
-        blueright.release();
 
         //telemtry for values and percents
         //telemetry.addData("Left raw value", (int) Core.sumElems(left).val[0]);
@@ -93,20 +83,17 @@ public class ObjectDetectorRed extends OpenCvPipeline {
         //telemetry.addData("Right percentage", Math.round(bluerightValue * 100) + "%");
 
         //boolean stating that element are either right or left if the box is filled to more than 'PERCENT_COLOR_THRESHOLD'
-        boolean elementLeft = leftValue > PERCENT_COLOR_THRESHOLD;
-        boolean elementRight = rightValue > PERCENT_COLOR_THRESHOLD;
-
-        boolean blueelementLeft = blueleftValue > PERCENT_COLOR_THRESHOLD;
-        boolean blueelementRight = bluerightValue > PERCENT_COLOR_THRESHOLD;
+        boolean elementLeft = leftValue < PERCENT_COLOR_THRESHOLD;
+        boolean elementRight = rightValue < PERCENT_COLOR_THRESHOLD;
 
         //tells location of element(left right or not found(looks for stuff in rectangles))
-        if ((!elementLeft && !elementRight) && (!blueelementLeft && !blueelementRight)){
+        if ((!elementLeft && !elementRight) ){
             //if element not found, it say not found
             location = Location.NOT_FOUND;
             IntLocation=0;
             //  telemetry.addData("Element Location", "not found; on left side");
         }
-        else if (elementLeft || blueelementLeft) {
+        else if (elementLeft ) {
             //if 40% or more of element in left rectangle, it say left
             location = Location.LEFT;
             IntLocation=1;
@@ -121,7 +108,7 @@ public class ObjectDetectorRed extends OpenCvPipeline {
         //telemetry.update();
 
         //turns everything that not the color we look for into black
-        Imgproc.cvtColor(mat, bluemat, Imgproc.COLOR_GRAY2RGB);
+        Imgproc.cvtColor(mat, mat, Imgproc.COLOR_GRAY2RGB);
 
         // color of rectangles in camera stream
         Scalar colorStone = new Scalar(255, 0, 0);
@@ -130,8 +117,6 @@ public class ObjectDetectorRed extends OpenCvPipeline {
         Imgproc.rectangle(mat, LEFT_ROI, location == Location.LEFT? colorSkystone:colorStone);
         Imgproc.rectangle(mat, RIGHT_ROI, location == Location.RIGHT? colorSkystone:colorStone);
 
-        Imgproc.rectangle(bluemat, LEFT_ROI, location == Location.LEFT? colorSkystone:colorStone);
-        Imgproc.rectangle(bluemat, RIGHT_ROI, location == Location.RIGHT? colorSkystone:colorStone);
 
         return mat;
 
