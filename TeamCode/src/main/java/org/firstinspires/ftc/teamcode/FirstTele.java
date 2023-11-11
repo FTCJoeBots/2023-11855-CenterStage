@@ -6,6 +6,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @TeleOp(name = "Blue TeleOp",group="TeleOp")
@@ -14,13 +15,15 @@ public class FirstTele extends OpMode{
 
     int Statejoey= 0;
 
+    // DcMotor pullup;
+
     boolean startjoey =false;
     boolean currentjoey;
     boolean previosPressedjoey = false;
 
     private double strafe = 0;
 
-    private double MAXSPEED = 1;
+    private double MAXSPEED = 0.75;
     double forward;
     double clockwise;
     double right;
@@ -75,8 +78,18 @@ public class FirstTele extends OpMode{
     Lift lift = new Lift();
     PullUpArm PullUp = new PullUpArm();
     BucketArm bucketArm = new BucketArm();
+
+    PullUpArm pullup = new PullUpArm();
+
     @Override
     public void init() {
+        pullup.init(hardwareMap);
+        pullup.Pullup.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        pullup.Pullup.setPower(0);
+        //pullup = hardwareMap.get(DcMotor.class,"PullUp");
+        //pullup.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //pullup.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //pullup
 
 
     mecanum.init(hardwareMap);
@@ -86,9 +99,11 @@ public class FirstTele extends OpMode{
 
         Bucket.init(hardwareMap);
 
-        bucketArm.init(hardwareMap);
+        bucketArm.init(hardwareMap, BucketArm.BucketStartPosition.OUT, BucketArm.BucketGateStartPosition.CLOSE);
 
-        telemetry.speak("Hello Divyang");
+        telemetry.speak("Hello guys. Have a good match.");
+        pullup.Pullup.setPower(0);
+
 
     }
         //while(opModeIsActive()&&!isStopRequested()){
@@ -104,9 +119,9 @@ public class FirstTele extends OpMode{
 
 
 
-            forward = gamepad1.left_stick_y * -1;
-            strafe = gamepad1.right_trigger - gamepad1.left_trigger;
-            rotate = gamepad1.right_stick_x;
+            forward = gamepad1.left_stick_y * -MAXSPEED;
+            strafe = gamepad1.right_trigger*MAXSPEED - gamepad1.left_trigger*MAXSPEED;
+            rotate = gamepad1.right_stick_x*MAXSPEED;
 
             mecanum.driveMecanum(forward, strafe, rotate);
 
@@ -140,17 +155,21 @@ public class FirstTele extends OpMode{
 
             if (gamepad2.left_bumper) {
                 lift.lowerLiftManual();
-                lift.contorller();
             }
 
-            if (gamepad1.right_bumper) {
-                PullUp.ManualPullUp();
-                PullUp.contorller();
+
+            if (gamepad1.dpad_up) {
+                pullup.PullUp();
+                pullup.contorller();
+            }else{
+                pullup.Pullup.setPower(0);
             }
 
-            if (gamepad1.left_bumper) {
-                PullUp.ManualPullDown();
-                PullUp.contorller();
+            if(gamepad1.dpad_down){
+                pullup.PullDown();
+                pullup.contorller();
+            }else{
+                pullup.Pullup.setPower(0);
             }
 
             if (gamepad2.dpad_down) {
@@ -182,30 +201,13 @@ public class FirstTele extends OpMode{
             }
 
             if (gamepad2.a) {
-                bucketArm.BucketRight();
+                bucketArm.BucketOut();
             }
 
 
             if (gamepad2.b) {
-                bucketArm.BucketLeft();
+                bucketArm.BucketIn();
             }
-
-            if (gamepad2.y) {
-                bucketArm.BucketStop();
-            }
-
-            if(gamepad1.b){
-                forward*=0.5;
-                strafe*=0.5;
-                rotate*=0.5;
-            }
-
-            if(gamepad1.y){
-                forward*=1;
-                strafe*=1;
-                rotate*=1;
-            }
-
 
         }
 

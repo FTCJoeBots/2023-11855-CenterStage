@@ -13,8 +13,8 @@ public class JoeyIntake {
 
     DcMotor joey;
 
-    public double joeysSpeed = 0.9;
-    public double joeysReverseSpeed = -0.75;
+    public double joeysSpeed = 1;
+    public double joeysReverseSpeed = -1;
 
     public double joeysAutoDrop = 0.25;
 
@@ -33,7 +33,7 @@ public class JoeyIntake {
     }
 
     public void JimReverse(){
-        joey.setPower(-joeysReverseSpeed);
+        joey.setPower(joeysReverseSpeed);
     }
 
     public void Slow_Start(){ joey.setPower(joeysAutoDrop); }

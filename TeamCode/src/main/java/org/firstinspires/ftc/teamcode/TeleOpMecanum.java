@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.matrices.GeneralMatrixF;
 import org.firstinspires.ftc.robotcore.external.matrices.MatrixF;
 
-class TeleOpMecanum {
+public class TeleOpMecanum {
     private DcMotor motor0;
     private DcMotor motor1;
     private DcMotor motor2;
@@ -21,7 +21,7 @@ class TeleOpMecanum {
 
     public static double CM_PER_TICK = (2 * Math.PI * GEAR_RATIO * WHEEL_RADIUS) / TICKS_PER_ROTATION;
 
-    private double maxSpeed = 1.0;
+    private double maxSpeed = 0.75;
 
     private MatrixF conversion;
     private GeneralMatrixF encoderMatrix = new GeneralMatrixF(3, 1);
@@ -32,7 +32,7 @@ class TeleOpMecanum {
     private int backLeftOffset;
 
 
-    TeleOpMecanum() {
+    public TeleOpMecanum() {
         float[] data = {1.0f, 1.0f, 1.0f,
                 1.0f, -1.0f, -1.0f,
                 1.0f, -1.0f, 1.0f};
@@ -40,7 +40,7 @@ class TeleOpMecanum {
         conversion = conversion.inverted();
     }
 
-    void init(HardwareMap hwMap) {
+    public void init(HardwareMap hwMap) {
         motor0 = hwMap.get(DcMotor.class, "leftFront");
        // motor0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motor1 = hwMap.get(DcMotor.class, "rightFront");
@@ -73,7 +73,7 @@ class TeleOpMecanum {
         motor3.setPower(brSpeed / largest);
     }
 
-    void driveMecanum(double forward, double strafe, double rotate) {
+    public void driveMecanum(double forward, double strafe, double rotate) {
         double frontLeftSpeed = forward + strafe + rotate;
         double frontRightSpeed = forward - strafe - rotate;
         double backLeftSpeed = forward - strafe + rotate;

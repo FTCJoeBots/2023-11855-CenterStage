@@ -9,7 +9,7 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
-public class ObjectDetectorBlue extends OpenCvPipeline {
+public class ObjectDetectorBlueLeft extends OpenCvPipeline {
     Telemetry telemetry;
     Mat mat = new Mat();
     Mat bluemat = new Mat();
@@ -41,7 +41,7 @@ public class ObjectDetectorBlue extends OpenCvPipeline {
     //determines what percentage has to fill box
     static double PERCENT_COLOR_THRESHOLD = 0.35;
 
-    public ObjectDetectorBlue(Telemetry t) { telemetry = t; }
+    public ObjectDetectorBlueLeft(Telemetry t) { telemetry = t; }
 
     @Override
     public Mat processFrame(Mat input) {

@@ -19,13 +19,13 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
  *
  */
 
-@Autonomous(name="LakeviewBlueLeft", group="Pushbot")
+@Autonomous(name="LakeviewBlueRight", group="Pushbot")
 
-public class LakeviewAutoBlueLeft extends LinearOpMode {
+public class LakeviewAutoBlueRight extends LinearOpMode {
 
     /* Declare OpMode members. */
     OpenCvCamera webcam;
-    ObjectDetectorBlueLeft OD = new ObjectDetectorBlueLeft(telemetry);
+    ObjectDetectorBlueRight OD = new ObjectDetectorBlueRight(telemetry);
     private ElapsedTime     runtime = new ElapsedTime();
 
 
@@ -34,9 +34,9 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
     public void runOpMode() {
 
         //-71.75
-        Pose2d startPose = new Pose2d(-71.75, 15, Math.toRadians(-90));
-        Pose2d Pose1 = new Pose2d(-27.5, 17.5, Math.toRadians(-90));
-        Pose2d Pose2 = new Pose2d(-35, 12, Math.toRadians(-90));
+        Pose2d startPose = new Pose2d(0, 0, Math.toRadians(-90));
+        Pose2d Pose1 = new Pose2d(33, 5, Math.toRadians(-90));
+        Pose2d Pose2 = new Pose2d(33, 24, Math.toRadians(-90));
         Pose2d UsedPose;
 
         JoeyIntake intake = new JoeyIntake();
@@ -64,18 +64,18 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
         while(!isStarted()) {
             if (OD.getIntLocation() == 2) {
                 telemetry.addData("Location", OD.getIntLocation());
-                telemetry.addLine("Center");
+                telemetry.addLine("Right");
                 telemetry.update();
                 sleep(30);
             } else if (OD.getIntLocation() == 1) {
                 telemetry.addData("Location", OD.getIntLocation());
-                telemetry.addLine("Left");
+                telemetry.addLine("Center");
                 telemetry.update();
                 sleep(30);
 
             } else {
                 telemetry.addData("Location", OD.getIntLocation());
-                telemetry.addLine("Right");
+                telemetry.addLine("Left");
                 telemetry.update();
                 sleep(30);
             }
@@ -88,39 +88,35 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
 
         //sleep(5000);
 
-        if (OD.getIntLocation() == 2){ // center
+        if (OD.getIntLocation() == 2){ // Right
 
             Actions.runBlocking( new SequentialAction (
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-27,25),Math.toRadians(-75))
+                            .strafeToLinearHeading(new Vector2d(33,5),Math.toRadians(-75))
                             .build(),
                    intake.inverse(),
                    drive.actionBuilder(drive1.pose)
+                           .waitSeconds(0.5)
                            .setTangent(0)
-                           .strafeToLinearHeading(new Vector2d(-71.75,50),Math.toRadians(-75))
-                           .strafeToLinearHeading(new Vector2d(-71.75,71.75),Math.toRadians(-75))
+                           .strafeToLinearHeading(new Vector2d(60,5),Math.toRadians(-90))
+                           .strafeToLinearHeading(new Vector2d(62,100),Math.toRadians(-75))
                            .build()
-                   /* drive.actionBuilder(drive1.pose)
+                   /*drive.actionBuilder(drive1.pose)
                             .waitSeconds(2)
                             .setTangent(0)
                             .splineToLinearHeading(new Pose2d(40.0,100.0, Math.toRadians(-75)),0)
                             .build()*/
             ));
 
-        } else if (OD.getIntLocation() == 1) { // Left
+        } else if (OD.getIntLocation() == 1) { // Center
             Actions.runBlocking( new SequentialAction (
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-30,38.5),Math.toRadians(-75))
-                            .build(),
-                    intake.inverse(),
-                    drive.actionBuilder(drive1.pose)
-                            .waitSeconds(1)
-                            .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-71.75,50),Math.toRadians(-75))
-                            .strafeToLinearHeading(new Vector2d(-71.75,71.75),Math.toRadians(-75))
+                            .strafeToLinearHeading(new Vector2d(60,5),Math.toRadians(-90))
+                            .strafeToLinearHeading(new Vector2d(62,100),Math.toRadians(-75))
                             .build()
+
                    /* drive.actionBuilder(drive1.pose)
                             .waitSeconds(2)
                             .setTangent(0)
@@ -129,18 +125,12 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
             ));
 
 
-        } else { // Right
+        } else { // Left
             Actions.runBlocking( new SequentialAction (
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-36,11.5),Math.toRadians(-75))
-                            .build(),
-                    intake.inverse(),
-                    drive.actionBuilder(drive2.pose)
-                            .waitSeconds(1)
-                            .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-71.75,30),Math.toRadians(-75))
-                            .strafeToLinearHeading(new Vector2d(-71.75,71.75),Math.toRadians(-75))
+                            .strafeToLinearHeading(new Vector2d(60,5),Math.toRadians(-90))
+                            .strafeToLinearHeading(new Vector2d(62,100),Math.toRadians(-75))
                             .build()
                    /* drive.actionBuilder(drive1.pose)
                             .waitSeconds(2)

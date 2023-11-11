@@ -46,10 +46,10 @@ public class Lift {
     public void contorller(){
         LeftLift.setTargetPosition(lift_target_position);
         LeftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        LeftLift.setPower(0.3);
+        LeftLift.setPower(0.6);
         RightLift.setTargetPosition(lift_target_position);
         RightLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        RightLift.setPower(0.3);
+        RightLift.setPower(0.6);
     }
 
     public void raiseLiftManual(){
