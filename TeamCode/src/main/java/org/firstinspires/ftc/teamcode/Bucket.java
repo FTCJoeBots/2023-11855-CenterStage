@@ -3,6 +3,10 @@
 //public class Bucket {
 //}
 package org.firstinspires.ftc.teamcode;
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -91,4 +95,31 @@ public class Bucket {
 
          }
      }*/
+
+    public class OpenGate implements Action {
+        public void init() {BucketGate.setPosition(1);}
+        public boolean loop(TelemetryPacket packet) {return false;}
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            BucketGate.setPosition(1);
+            return false;}
+    }
+
+    public Action GateDrop() {
+        return new OpenGate();
+    }
+
+
+    public class closeGate implements Action {
+        public void init() {BucketGate.setPosition(0);}
+        public boolean loop(TelemetryPacket packet) {return false;}
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            BucketGate.setPosition(0);
+            return false;}
+    }
+
+    public Action CloseGate() {
+        return new closeGate();
+    }
     public static double getGatePosition(){ return BucketGate.getPosition(); }}

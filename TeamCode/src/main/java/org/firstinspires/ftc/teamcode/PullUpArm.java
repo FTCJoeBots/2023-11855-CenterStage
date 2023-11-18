@@ -61,12 +61,12 @@ public class PullUpArm {
     }
 
     public void PullUp(){
-pullup_target_position = Pullup.getCurrentPosition()+100;
-Pullup.setPower(.95);
+pullup_target_position = Pullup.getCurrentPosition()+1000;
+Pullup.setPower(1);
     }
 
     public void PullDown(){
-        pullup_target_position = Pullup.getCurrentPosition()-100;
+        pullup_target_position = Pullup.getCurrentPosition()-1000;
         Pullup.setPower(-1);
     }
 

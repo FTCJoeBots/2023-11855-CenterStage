@@ -125,6 +125,19 @@ public class FirstTele extends OpMode{
 
             mecanum.driveMecanum(forward, strafe, rotate);
 
+
+            if(TurtleMode) {
+                mecanum.driveMecanum(forward*0.01,strafe*0.01,rotate*0.01);
+            }
+            if(gamepad1.a&&!Previous1A) {
+                TurtleMode=!TurtleMode;
+                Previous1A=true;
+            }
+            if(!gamepad1.a) {
+                Previous1A=false;
+            }
+
+
             currentjoey = gamepad1.x;
             if (currentjoey && currentjoey != startjoey) {
                 if (Statejoey == 1) {

@@ -1,9 +1,17 @@
 package org.firstinspires.ftc.teamcode;
 
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.*;
 
 public class BucketArm {
 
@@ -69,6 +77,7 @@ public class BucketArm {
     static Servo Bucket ;
     static Servo BucketGate ;
 
+
     public enum BucketStartPosition {
         //Bucket Points In (towards the intake)
         IN,
@@ -85,7 +94,7 @@ public class BucketArm {
         OPEN
     }
 
-    public void init(HardwareMap hwMap, BucketStartPosition BSP, BucketGateStartPosition BGSP) {
+    public static void init(HardwareMap hwMap, BucketStartPosition BSP, BucketGateStartPosition BGSP) {
         Bucket = hwMap.get(Servo.class,"servo");
         //  BucketGate = hwMap.get(Servo.class,"BucketGate");
         Bucket.setPosition(InBucket);
@@ -170,6 +179,31 @@ public class BucketArm {
                 break;
 
         }
+    }
+    public class BucketOut implements Action {
+        public void init() {Bucket.setPosition(OutBucket);}
+        public boolean loop(TelemetryPacket packet) {return false;}
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            Bucket.setPosition(OutBucket);
+            return false;}
+    }
+
+    public Action BucketDrop() {
+        return new BucketOut();
+    }
+
+    public class BucketBack implements Action {
+        public void init() {Bucket.setPosition(InBucket);}
+        public boolean loop(TelemetryPacket packet) {return false;}
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            Bucket.setPosition(InBucket);
+            return false;}
+    }
+
+    public Action BucketBack() {
+        return new BucketBack();
     }
 
     public static double getGatePosition(){

@@ -7,6 +7,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -34,21 +35,25 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
     public void runOpMode() {
 
         //-71.75
-        Pose2d startPose = new Pose2d(-71.75, 15, Math.toRadians(-90));
-        Pose2d Pose1 = new Pose2d(-27.5, 17.5, Math.toRadians(-90));
-        Pose2d Pose2 = new Pose2d(-35, 12, Math.toRadians(-90));
+        Pose2d startPose = new Pose2d(-71.75, 23, Math.toRadians(-90));
+        Pose2d Pose1 = new Pose2d(-27.5, 15.25, Math.toRadians(-90));
+        Pose2d Pose2 = new Pose2d(-35, 14.5, Math.toRadians(-90));
+        Pose2d pose3 = new Pose2d(-20,56,Math.toRadians(-90));
         Pose2d UsedPose;
 
         JoeyIntake intake = new JoeyIntake();
         Bucket Bucket = new Bucket();
+        BucketArm BucketArm = new BucketArm();
 
         MecanumDrive drive = new MecanumDrive(hardwareMap, startPose);
         MecanumDrive drive1 = new MecanumDrive(hardwareMap, Pose1);
         MecanumDrive drive2 = new MecanumDrive(hardwareMap, Pose2);
+        MecanumDrive drive3 = new MecanumDrive(hardwareMap,pose3);
 
         Lift lift = new Lift();
 
         Bucket.init(hardwareMap);
+        BucketArm.init(hardwareMap, org.firstinspires.ftc.teamcode.BucketArm.BucketStartPosition.OUT, org.firstinspires.ftc.teamcode.BucketArm.BucketGateStartPosition.CLOSE);
         lift.init(hardwareMap);
         intake.init(hardwareMap);
 
@@ -112,7 +117,7 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
             Actions.runBlocking( new SequentialAction (
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-30,38.5),Math.toRadians(-75))
+                            .strafeToLinearHeading(new Vector2d(-30,41),Math.toRadians(-75))
                             .build(),
                     intake.inverse(),
                     drive.actionBuilder(drive1.pose)
@@ -133,15 +138,36 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
             Actions.runBlocking( new SequentialAction (
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-36,11.5),Math.toRadians(-75))
+                            .strafeToLinearHeading(new Vector2d(-37.5,15.25),Math.toRadians(-75))
                             .build(),
                     intake.inverse(),
                     drive.actionBuilder(drive2.pose)
                             .waitSeconds(1)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-71.75,30),Math.toRadians(-75))
-                            .strafeToLinearHeading(new Vector2d(-71.75,71.75),Math.toRadians(-75))
-                            .build()
+                            .strafeToLinearHeading(new Vector2d(-21,56),Math.toRadians(-97))
+                            .build(),
+                   Lift.AutoPos1(),
+                    drive.actionBuilder(drive3.pose)
+                            .waitSeconds(2)
+                            .build(),
+                   BucketArm.BucketDrop(),
+                    drive.actionBuilder(drive3.pose)
+                            .waitSeconds(3)
+                            .build(),
+                    Bucket.GateDrop(),
+                    drive.actionBuilder(drive3.pose)
+                            .waitSeconds(2)
+                            .build(),
+                    Bucket.CloseGate(),
+                   drive.actionBuilder(drive3.pose)
+                           .waitSeconds(2)
+                           .build(),
+                    BucketArm.BucketBack(),
+                   drive.actionBuilder(drive3.pose)
+                           .waitSeconds(3)
+                           .build(),
+                   lift.LefPos0()
+
                    /* drive.actionBuilder(drive1.pose)
                             .waitSeconds(2)
                             .setTangent(0)

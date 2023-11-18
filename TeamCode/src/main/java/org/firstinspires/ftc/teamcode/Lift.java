@@ -9,26 +9,26 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.*;
 import com.acmerobotics.roadrunner.Pose2d;
 public class Lift {
-    DcMotor LeftLift;
-    DcMotor RightLift;
+    static DcMotor LeftLift;
+    static DcMotor RightLift;
 
-    int LIFTMAXIMUM = -2500;
-    int LIFTMINIMMUM = 30;
-    int lift_target_position=0;
+    static int LIFTMAXIMUM = -2500;
+    static int LIFTMINIMMUM = 30;
+    static int lift_target_position=0;
 
-    int Rightlow = -783;
-    int Rightmed = -1490;
-    int Righthigh = -2246;
+    static int Rightlow = -783;
+   static int Rightmed = -1490;
+    static int Righthigh = -2246;
 
-    int LeftLow = -783;
+   static int LeftLow = -783;
 
-    int Leftmed = -1490;
+    static int Leftmed = -1490;
 
-    int Lefthigh = -2246;
-    public double getLiftPositionRight(){ return RightLift.getCurrentPosition();}
-    public double getLiftPositionLeft(){return LeftLift.getCurrentPosition();}
+   static int Lefthigh = -2246;
+    public static double getLiftPositionRight(){ return RightLift.getCurrentPosition();}
+    public static double getLiftPositionLeft(){return LeftLift.getCurrentPosition();}
 
-    public void init(HardwareMap hwMap){
+    public static void init(HardwareMap hwMap){
         LeftLift = hwMap.get(DcMotor.class,"LeftLift");
         LeftLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LeftLift.setTargetPosition(LIFTMINIMMUM);
@@ -43,7 +43,7 @@ public class Lift {
         RightLift.setPower(0);
     }
 
-    public void contorller(){
+    public static void contorller(){
         LeftLift.setTargetPosition(lift_target_position);
         LeftLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         LeftLift.setPower(0.6);
@@ -62,7 +62,7 @@ public class Lift {
         lift_target_position = RightLift.getCurrentPosition()+100;
     }
 
-    public void RightLift_To_Position(int LiftPosition) {
+    public static void RightLift_To_Position(int LiftPosition) {
         switch (LiftPosition) {
             case 0:
                 lift_target_position = LIFTMINIMMUM;
@@ -80,7 +80,7 @@ public class Lift {
 
         }
     }
-    public void LeftLift_To_Position(int LeftLiftPosition) {
+    public static void LeftLift_To_Position(int LeftLiftPosition) {
         switch (LeftLiftPosition) {
             case 0:
                 lift_target_position = LIFTMINIMMUM;
@@ -99,7 +99,7 @@ public class Lift {
         }
     }
 
-    public boolean LeftLiftSafety(){
+    public static boolean LeftLiftSafety(){
         if(LeftLift.getCurrentPosition() > -LIFTMAXIMUM){
             return true;
         }else{
@@ -108,7 +108,7 @@ public class Lift {
     }
 
 
-    public boolean RightLiftSafety(){
+    public static boolean RightLiftSafety(){
         if(RightLift.getCurrentPosition() > LIFTMAXIMUM){
             return true;
         }else{
@@ -117,12 +117,14 @@ public class Lift {
     }
 
 
-    public class LeftliftToOne implements Action {
-        public void init() {LeftLift_To_Position(1);}
+    public static class AutoliftToOne implements Action {
+        public void init() {LeftLift_To_Position(1);
+        RightLift_To_Position(1);}
         public boolean loop(TelemetryPacket packet) {return false;}
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
             LeftLift_To_Position(1);
+            RightLift_To_Position(1);
             contorller();
             return false;}
     }
@@ -137,12 +139,14 @@ public class Lift {
     }
 
 
-    public class LeftliftToZero implements Action {
-        public void init() {LeftLift_To_Position(0);}
+    public class liftToZero implements Action {
+        public void init() {LeftLift_To_Position(0);
+        RightLift_To_Position(0);}
         public boolean loop(TelemetryPacket packet) {return false;}
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            LeftLift_To_Position(1);
+            LeftLift_To_Position(0);
+            RightLift_To_Position(0);
             contorller();
             return false;}
     }
@@ -166,11 +170,11 @@ public class Lift {
     public Action RightPos1() {
         return new Lift.RightliftToOne();
     }
-    public Action LeftPos1() {
-        return new Lift.LeftliftToOne();
+    public  static Action AutoPos1() {
+        return new Lift.AutoliftToOne();
     }
     public Action LefPos0() {
-        return new Lift.LeftliftToZero();
+        return new Lift.liftToZero();
     }
 
 

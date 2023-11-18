@@ -119,7 +119,7 @@ public class AutoRedLeft extends LinearOpMode {
                             .waitSeconds(1)
                             .setTangent(0)
                             .strafeToLinearHeading(new Vector2d(-6,65),Math.toRadians(-75))
-                            .strafeToLinearHeading(new Vector2d(-10,-275),Math.toRadians(-75))
+                            .strafeToLinearHeading(new Vector2d(1,-275),Math.toRadians(-75))
                             .build()
 
             ));
@@ -140,7 +140,7 @@ public class AutoRedLeft extends LinearOpMode {
                     drive.actionBuilder(drive1.pose)
                             .setTangent(0)
                             .strafeToLinearHeading(new Vector2d(-6,65),Math.toRadians(-75))
-                            .strafeToLinearHeading(new Vector2d(-6,-275),Math.toRadians(-75))
+                            .strafeToLinearHeading(new Vector2d(-0,-275),Math.toRadians(-75))
                             .build()
 
                    /* drive.actionBuilder(drive1.pose)
