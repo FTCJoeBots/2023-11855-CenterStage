@@ -15,6 +15,8 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
+import java.util.Vector;
+
 /**
  * This is sample code used to explain how to write an autonomous code
  *
@@ -36,9 +38,11 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
 
         //-71.75
         Pose2d startPose = new Pose2d(-71.75, 23, Math.toRadians(-90));
-        Pose2d Pose1 = new Pose2d(-27.5, 15.25, Math.toRadians(-90));
+        Pose2d Pose1 = new Pose2d(-25, 25, Math.toRadians(-90));
         Pose2d Pose2 = new Pose2d(-35, 14.5, Math.toRadians(-90));
-        Pose2d pose3 = new Pose2d(-20,56,Math.toRadians(-90));
+        Pose2d pose3 = new Pose2d(-20.75,52,Math.toRadians(-90));
+        Pose2d CenterBoard = new Pose2d(-25,52,Math.toRadians(-90));
+        Pose2d LeftBoard = new Pose2d(-60,51.5,Math.toRadians(-90));
         Pose2d UsedPose;
 
         JoeyIntake intake = new JoeyIntake();
@@ -49,7 +53,8 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
         MecanumDrive drive1 = new MecanumDrive(hardwareMap, Pose1);
         MecanumDrive drive2 = new MecanumDrive(hardwareMap, Pose2);
         MecanumDrive drive3 = new MecanumDrive(hardwareMap,pose3);
-
+        MecanumDrive BoardCenter = new MecanumDrive(hardwareMap,CenterBoard);
+        MecanumDrive boardLeft = new MecanumDrive(hardwareMap,LeftBoard);
         Lift lift = new Lift();
 
         Bucket.init(hardwareMap);
@@ -98,14 +103,46 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
             Actions.runBlocking( new SequentialAction (
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-27,25),Math.toRadians(-75))
+                            .strafeToLinearHeading(new Vector2d(-26,27.5),Math.toRadians(-75))
                             .build(),
                    intake.inverse(),
                    drive.actionBuilder(drive1.pose)
-                           .setTangent(0)
-                           .strafeToLinearHeading(new Vector2d(-71.75,50),Math.toRadians(-75))
-                           .strafeToLinearHeading(new Vector2d(-71.75,71.75),Math.toRadians(-75))
-                           .build()
+                           .waitSeconds(1)
+                           .build(),
+                    intake.stop(),
+                    drive.actionBuilder(drive1.pose)
+                            .waitSeconds(0.5)
+                            .setTangent(0)
+                            .strafeToLinearHeading(new Vector2d(-42.75,47.5),Math.toRadians(-97.5))
+                                    .build(),
+                    Lift.AutoPos1(),
+                    drive.actionBuilder(drive3.pose)
+                            .waitSeconds(2)
+                            .build(),
+                    BucketArm.BucketDrop(),
+                    drive.actionBuilder(drive3.pose)
+                            .waitSeconds(3)
+                            .build(),
+                    Bucket.GateDrop(),
+                    drive.actionBuilder(drive3.pose)
+                            .waitSeconds(2)
+                            .build(),
+                    Bucket.CloseGate(),
+                    drive.actionBuilder(drive3.pose)
+                            .waitSeconds(2)
+                            .build(),
+                    BucketArm.BucketBack(),
+                    drive.actionBuilder(drive3.pose)
+                            .waitSeconds(3)
+                            .build(),
+                    lift.LefPos0(),
+                    drive.actionBuilder(drive.pose)
+                            .waitSeconds(2)
+                            .strafeToLinearHeading(new Vector2d(-110,30),Math.toRadians(-97))
+                            .strafeToLinearHeading(new Vector2d(-110,49.5),Math.toRadians(-97))
+                            .build()
+
+
                    /* drive.actionBuilder(drive1.pose)
                             .waitSeconds(2)
                             .setTangent(0)
@@ -117,16 +154,41 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
             Actions.runBlocking( new SequentialAction (
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-30,41),Math.toRadians(-75))
+                            .strafeToLinearHeading(new Vector2d(-30,45),Math.toRadians(-75))
                             .build(),
                     intake.inverse(),
                     drive.actionBuilder(drive1.pose)
                             .waitSeconds(1)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-71.75,50),Math.toRadians(-75))
-                            .strafeToLinearHeading(new Vector2d(-71.75,71.75),Math.toRadians(-75))
+                            .strafeToLinearHeading(new Vector2d(-46,45.5),Math.toRadians(-107.5))
+                            .build(),
+                    Lift.AutoPos1(),
+                    drive.actionBuilder(drive3.pose)
+                            .waitSeconds(2)
+                            .build(),
+                    BucketArm.BucketDrop(),
+                    drive.actionBuilder(drive3.pose)
+                            .waitSeconds(3)
+                            .build(),
+                    Bucket.GateDrop(),
+                    drive.actionBuilder(drive3.pose)
+                            .waitSeconds(2)
+                            .build(),
+                    Bucket.CloseGate(),
+                    drive.actionBuilder(drive3.pose)
+                            .waitSeconds(2)
+                            .build(),
+                    BucketArm.BucketBack(),
+                    drive.actionBuilder(drive3.pose)
+                            .waitSeconds(5)
+                            .build(),
+                    lift.LefPos0(),
+                    drive.actionBuilder(drive.pose)
+                            .waitSeconds(2)
+                            .strafeToLinearHeading(new Vector2d(-95,30),Math.toRadians(-97))
+                            .strafeToLinearHeading(new Vector2d(-95,49.5),Math.toRadians(-97))
                             .build()
-                   /* drive.actionBuilder(drive1.pose)
+                   /* drive.actionBuilder(drive1.pose)d
                             .waitSeconds(2)
                             .setTangent(0)
                             .splineToLinearHeading(new Pose2d(40.0,100.0, Math.toRadians(-75)),0)
@@ -138,13 +200,13 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
             Actions.runBlocking( new SequentialAction (
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-37.5,15.25),Math.toRadians(-75))
+                            .strafeToLinearHeading(new Vector2d(-37.5,18),Math.toRadians(-75))
                             .build(),
                     intake.inverse(),
                     drive.actionBuilder(drive2.pose)
                             .waitSeconds(1)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-21,56),Math.toRadians(-97))
+                            .strafeToLinearHeading(new Vector2d(-20.75,52),Math.toRadians(-97))
                             .build(),
                    Lift.AutoPos1(),
                     drive.actionBuilder(drive3.pose)
@@ -166,7 +228,12 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
                    drive.actionBuilder(drive3.pose)
                            .waitSeconds(3)
                            .build(),
-                   lift.LefPos0()
+                   lift.LefPos0(),
+                    drive.actionBuilder(drive.pose)
+                            .waitSeconds(2)
+                            .strafeToLinearHeading(new Vector2d(-110,30),Math.toRadians(-97))
+                            .strafeToLinearHeading(new Vector2d(-110,50),Math.toRadians(-97))
+                            .build()
 
                    /* drive.actionBuilder(drive1.pose)
                             .waitSeconds(2)

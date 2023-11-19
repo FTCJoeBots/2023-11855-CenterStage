@@ -24,7 +24,7 @@ public class AutoRedRight extends LinearOpMode {
 
     /* Declare OpMode members. */
     OpenCvCamera webcam2;
-    ObjectDetectorRed ODR = new ObjectDetectorRed(telemetry);
+    ObjectDetectorRedRight ODR = new ObjectDetectorRedRight(telemetry);
     private ElapsedTime     runtime = new ElapsedTime();
 
 
@@ -87,17 +87,17 @@ public class AutoRedRight extends LinearOpMode {
         while(!isStarted()) {
             if (ODR.getIntLocation() == 2) {
                 telemetry.addData("Location", ODR.getIntLocation());
-                telemetry.addLine("Center");
+                telemetry.addLine("Right");
                 telemetry.update();
                 sleep(30);
             } else if (ODR.getIntLocation() == 1) {
-                telemetry.addLine("Left");
+                telemetry.addLine("Center");
                 telemetry.update();
                 sleep(30);
 
             } else {
                 telemetry.addData("Location", ODR.getIntLocation());
-                telemetry.addLine("Right");
+                telemetry.addLine("Left");
                 telemetry.update();
                 sleep(30);
             }
@@ -107,27 +107,19 @@ public class AutoRedRight extends LinearOpMode {
 
         telemetry.addLine("All done.  Press stop.");
         telemetry.update();
-        if (ODR.getIntLocation() == 2){ // center
+        if (ODR.getIntLocation() == 2){ // Right
 
             Actions.runBlocking( new SequentialAction(
                     drive.actionBuilder(drive.pose)
-
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(1.5,40),Math.toRadians(-75))
-                    /*        .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-29.25,47.5),Math.toRadians(-75))
+                            .strafeToLinearHeading(new Vector2d(50,-12),Math.toRadians(90))
+                            .strafeToLinearHeading(new Vector2d(45,-12),Math.toRadians(90))
                             .build(),
-                  intake.inverse(),
-                    drive.actionBuilder(drive1.pose)
-                            .waitSeconds(.5)
-                            .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-6,65),Math.toRadians(-75))
-                            .strafeToLinearHeading(new Vector2d(-6,-275),Math.toRadians(-75))
-                */            .build()
+                    intake.inverse()
 
             ));
 
-        } else if (ODR.getIntLocation() == 1) { // Left
+        } else if (ODR.getIntLocation() == 1) { // Center
             Actions.runBlocking( new SequentialAction (
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
@@ -155,7 +147,7 @@ public class AutoRedRight extends LinearOpMode {
             ));
 
 
-        } else { // Right
+        } else { // Left
             Actions.runBlocking( new SequentialAction (
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)

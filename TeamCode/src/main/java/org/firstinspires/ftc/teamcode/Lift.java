@@ -16,11 +16,14 @@ public class Lift {
     static int LIFTMINIMMUM = 30;
     static int lift_target_position=0;
 
-    static int Rightlow = -783;
+    static int Rightlow = -695;
    static int Rightmed = -1490;
     static int Righthigh = -2246;
 
-   static int LeftLow = -783;
+    static int RightAuto = -630;
+    static int LeftAuto = -630;
+
+   static int LeftLow = -695;
 
     static int Leftmed = -1490;
 
