@@ -81,6 +81,8 @@ public class FirstTele extends OpMode{
 
     PullUpArm pullup = new PullUpArm();
 
+    Shooter shooter = new Shooter();
+
     @Override
     public void init() {
         pullup.init(hardwareMap);
@@ -98,6 +100,8 @@ public class FirstTele extends OpMode{
         PullUp.init(hardwareMap);
 
         Bucket.init(hardwareMap);
+
+        shooter.init(hardwareMap);
 
         bucketArm.init(hardwareMap, BucketArm.BucketStartPosition.OUT, BucketArm.BucketGateStartPosition.CLOSE);
 
@@ -220,6 +224,10 @@ public class FirstTele extends OpMode{
 
             if (gamepad2.b) {
                 bucketArm.BucketIn();
+            }
+
+            if(gamepad1.b){
+                shooter.shoot();
             }
 
         }

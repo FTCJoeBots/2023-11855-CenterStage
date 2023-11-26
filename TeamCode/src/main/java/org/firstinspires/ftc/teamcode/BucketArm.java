@@ -62,8 +62,8 @@ public class BucketArm {
     final double OpenBucket = 0.5;
 
     ///init to .4
-    private static final double InBucket = 0.127;
-    private static final double OutBucket = .62;
+    private static final double InBucket = 0;
+    private static final double OutBucket = 0.425;
 
     static boolean BucketInB = false;
 

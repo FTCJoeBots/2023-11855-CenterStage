@@ -33,21 +33,29 @@ public class AutoRedRight extends LinearOpMode {
     public void runOpMode() {
         Pose2d startPose = new Pose2d(0, 0, Math.toRadians(-90));
         Pose2d Pose1 = new Pose2d(-30, 65, Math.toRadians(-90));
-        Pose2d Pose2 = new Pose2d(-35, 12, Math.toRadians(-90));
+        Pose2d Pose2 = new Pose2d(30, 20, Math.toRadians(90));
+        Pose2d drop = new Pose2d(40,-12,Math.toRadians(90));
+        Pose2d rightDrop = new Pose2d(54,-24,Math.toRadians(100));
+        Pose2d CenterSpike = new Pose2d(44,13,Math.toRadians(90));
         Pose2d UsedPose;
 
         JoeyIntake intake = new JoeyIntake();
         Bucket Bucket = new Bucket();
+        BucketArm BucketArm = new BucketArm();
 
         MecanumDrive drive = new MecanumDrive(hardwareMap, startPose);
         MecanumDrive drive1 = new MecanumDrive(hardwareMap, Pose1);
         MecanumDrive drive2 = new MecanumDrive(hardwareMap, Pose2);
+        MecanumDrive SpikeDrop = new MecanumDrive(hardwareMap,drop);
+        MecanumDrive RightPDrop = new MecanumDrive(hardwareMap, rightDrop);
+        MecanumDrive SpikeCenter = new MecanumDrive(hardwareMap,CenterSpike);
 
         Lift lift = new Lift();
 
         Bucket.init(hardwareMap);
         lift.init(hardwareMap);
         intake.init(hardwareMap);
+        BucketArm.init(hardwareMap, org.firstinspires.ftc.teamcode.BucketArm.BucketStartPosition.OUT, org.firstinspires.ftc.teamcode.BucketArm.BucketGateStartPosition.CLOSE);
 
         telemetry.addLine("Press > to Start");
         telemetry.update();
@@ -113,9 +121,39 @@ public class AutoRedRight extends LinearOpMode {
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
                             .strafeToLinearHeading(new Vector2d(50,-12),Math.toRadians(90))
-                            .strafeToLinearHeading(new Vector2d(45,-12),Math.toRadians(90))
+                            .strafeToLinearHeading(new Vector2d(40,-12),Math.toRadians(90))
                             .build(),
-                    intake.inverse()
+                    intake.inverse(),
+                    drive.actionBuilder(SpikeDrop.pose)
+                            .waitSeconds(0.75)
+                            .strafeToLinearHeading(new Vector2d(54.5,-25.5),Math.toRadians(100))
+                            .build(),
+                    Lift.AutoPos1(),
+                    drive.actionBuilder(RightPDrop.pose)
+                            .waitSeconds(2)
+                            .build(),
+                    BucketArm.BucketDrop(),
+                    drive.actionBuilder(RightPDrop.pose)
+                            .waitSeconds(4)
+                            .build(),
+                    Bucket.GateDrop(),
+                    drive.actionBuilder(RightPDrop.pose)
+                            .waitSeconds(2)
+                            .build(),
+                    Bucket.CloseGate(),
+                    drive.actionBuilder(RightPDrop.pose)
+                            .waitSeconds(2)
+                            .build(),
+                    BucketArm.BucketBack(),
+                    drive.actionBuilder(RightPDrop.pose)
+                            .waitSeconds(3)
+                            .build(),
+                    lift.LefPos0(),
+                    drive.actionBuilder(RightPDrop.pose)
+                            .waitSeconds(3)
+                            .strafeToLinearHeading(new Vector2d(50,-50),Math.toRadians(100))
+                            .strafeToLinearHeading(new Vector2d(75,-50),Math.toRadians(100))
+                            .build()
 
             ));
 
@@ -123,22 +161,39 @@ public class AutoRedRight extends LinearOpMode {
             Actions.runBlocking( new SequentialAction (
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(1.5,40),Math.toRadians(-75))
-                            /*.setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-30,65),Math.toRadians(-75))                            .build(),
-                    intake.inverse(),
-                    drive.actionBuilder(drive1.pose)
+                            .strafeToLinearHeading(new Vector2d(46,14),Math.toRadians(90))
+                            .build(),
+                   intake.inverse(),
+                   drive.actionBuilder(SpikeCenter.pose)
+                           .waitSeconds(1)
+                           .strafeToLinearHeading(new Vector2d(63.25,-4),Math.toRadians(102))
+                           .build(),
+                    Lift.AutoPos1(),
+                    drive.actionBuilder(RightPDrop.pose)
+                            .waitSeconds(0.5)
+                            .build(),
+                    BucketArm.BucketDrop(),
+                    drive.actionBuilder(RightPDrop.pose)
+                            .waitSeconds(1.5)
+                            .build(),
+                    Bucket.GateDrop(),
+                    drive.actionBuilder(RightPDrop.pose)
                             .waitSeconds(1)
                             .build(),
-
-                    intake.stop(),
-
-                    drive.actionBuilder(drive1.pose)
-                            .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-6,65),Math.toRadians(-75))
-                    */        .strafeToLinearHeading(new Vector2d(-6,-275),Math.toRadians(-75))
+                    Bucket.CloseGate(),
+                    drive.actionBuilder(RightPDrop.pose)
+                            .waitSeconds(2)
+                            .build(),
+                    BucketArm.BucketBack(),
+                    drive.actionBuilder(RightPDrop.pose)
+                            .waitSeconds(3)
+                            .build(),
+                    lift.LefPos0(),
+                    drive.actionBuilder(RightPDrop.pose)
+                            .waitSeconds(0.5)
+                            .strafeToLinearHeading(new Vector2d(50,-55),Math.toRadians(100))
+                            .strafeToLinearHeading(new Vector2d(75,-55),Math.toRadians(100))
                             .build()
-
                    /* drive.actionBuilder(drive1.pose)
                             .waitSeconds(2)
                             .setTangent(0)
@@ -151,32 +206,45 @@ public class AutoRedRight extends LinearOpMode {
             Actions.runBlocking( new SequentialAction (
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(20,-3),Math.toRadians(-75))
-                                    .build(),
-
-                            intake.inverse(),
-                            drive.actionBuilder(drive2.pose)
-                                    .waitSeconds(0.75)
-                            .strafeToLinearHeading(new Vector2d(0,0),Math.toRadians(-75))
-                            .strafeToLinearHeading(new Vector2d(1,40),Math.toRadians(-75))
-                          /*  .strafeToLinearHeading(new Vector2d(-30,37),Math.toRadians(-75))
+                            .strafeToLinearHeading(new Vector2d(30,-10),Math.toRadians(-90))
+                            .strafeToLinearHeading(new Vector2d(27,8.5),Math.toRadians(90))
                             .build(),
                     intake.inverse(),
                     drive.actionBuilder(drive2.pose)
                             .waitSeconds(1)
-                            .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-30,30),Math.toRadians(-85))
-                            .strafeToLinearHeading(new Vector2d(-6,30),Math.toRadians(-75))
-                  */          //.strafeToLinearHeading(new Vector2d(-6,-85),Math.toRadians(-90))
-                            .build()
-                   /* drive.actionBuilder(drive1.pose)
+                            .strafeToLinearHeading(new Vector2d(66.5,28),Math.toRadians(100))
+                            .build(),
+                    Lift.AutoPos1(),
+                    drive.actionBuilder(RightPDrop.pose)
+                            .waitSeconds(0.5)
+                            .build(),
+                    BucketArm.BucketDrop(),
+                    drive.actionBuilder(RightPDrop.pose)
                             .waitSeconds(2)
-                            .setTangent(0)
-                            .splineToLinearHeading(new Pose2d(40.0,100.0, Math.toRadians(-75)),0)
-                            .build()*/
+                            .build(),
+                    Bucket.GateDrop(),
+                    drive.actionBuilder(RightPDrop.pose)
+                            .waitSeconds(1)
+                            .build(),
+                    Bucket.CloseGate(),
+                    drive.actionBuilder(RightPDrop.pose)
+                            .waitSeconds(1)
+                            .build(),
+                    BucketArm.BucketBack(),
+                    drive.actionBuilder(RightPDrop.pose)
+                            .waitSeconds(3)
+                            .build(),
+                    lift.LefPos0(),
+                    drive.actionBuilder(RightPDrop.pose)
+                            .waitSeconds(0.5)
+                            .strafeToLinearHeading(new Vector2d(50,-65),Math.toRadians(100))
+                            .strafeToLinearHeading(new Vector2d(75,-65),Math.toRadians(100))
+                            .build()
+
+
             ));
 
-        } if(isStopRequested()) return;
+        }  if(isStopRequested()) return;
     }
 }
 

@@ -24,8 +24,8 @@ public class ObjectDetectorRedRight extends OpenCvPipeline {
     //draws rectangles(make sure x max is 320 and y is 240(in ObjectDetectAuto webcam.startstreaming))
     //Rectangles for detecting if object of a certain color is in it and what percentage it is at
     static final Rect LEFT_ROI = new Rect(
-            new Point(80, 70),
-            new Point(230, 220)
+            new Point(97, 70),
+            new Point(220, 205)
             //new Point(0, 120),
             //new Point(130, 300)
 

@@ -14,7 +14,7 @@ public class JoeyIntake {
     DcMotor joey;
 
     public double joeysSpeed = 0.75;
-    public double joeysReverseSpeed = -1;
+    public double joeysReverseSpeed = -0.75;
 
     public double joeysAutoDrop = 0.25;
 
@@ -53,13 +53,26 @@ public class JoeyIntake {
 
     public class EntakeOn implements Action {
         public void init() {
-            Slow_Start();
+            JimStart();
         }
         public boolean loop(TelemetryPacket packet) {return false;}
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            Slow_Inverse();
+            JimStart();
             return false;}
+    }
+
+    public class Knock implements Action{
+        public void init(){
+            JimReverse();
+        }
+        public boolean loop(TelemetryPacket packet){return false;}
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket){
+            JimReverse();
+            return false;
+        }
     }
 
     public class EntakeBack implements Action {
@@ -90,5 +103,10 @@ public class JoeyIntake {
     public Action stop() {
         return new JoeyIntake.EntakeNo();
     }
+    public Action Knock(){
+        return  new JoeyIntake.Knock();
+    }
+
+
 
 }
