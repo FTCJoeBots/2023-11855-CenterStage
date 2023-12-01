@@ -39,7 +39,7 @@ public class ObjectDetectorRedRight extends OpenCvPipeline {
 
 
     //determines what percentage has to fill box
-    static double PERCENT_COLOR_THRESHOLD = 0.35;
+    static double PERCENT_COLOR_THRESHOLD = 0.6;
 
     public ObjectDetectorRedRight(Telemetry t) { telemetry = t; }
 

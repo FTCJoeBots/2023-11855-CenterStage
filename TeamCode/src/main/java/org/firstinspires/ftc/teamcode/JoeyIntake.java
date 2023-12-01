@@ -16,7 +16,7 @@ public class JoeyIntake {
     public double joeysSpeed = 0.75;
     public double joeysReverseSpeed = -0.75;
 
-    public double joeysAutoDrop = 0.25;
+    public double joeysAutoDrop = 0.3;
 
     public int JOEY = 0;
 

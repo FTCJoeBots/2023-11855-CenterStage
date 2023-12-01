@@ -167,13 +167,17 @@ public class LakeviewAutoBlueRight extends LinearOpMode {
                             .build(),
                     intake.inverse(),
                     drive.actionBuilder(SpikeCenter.pose)
+                            .waitSeconds(1)
+                                    .build(),
+                    intake.stop(),
+                    drive.actionBuilder(SpikeCenter.pose)
                             .waitSeconds(0.5)
                             .strafeToLinearHeading(new Vector2d(50,13.5),Math.toRadians(90))
                             .strafeToLinearHeading(new Vector2d(50,34),Math.toRadians(90))
                             .strafeToLinearHeading(new Vector2d(-40,36),Math.toRadians(90))
                             .strafeToLinearHeading(new Vector2d(-40,18),Math.toRadians(-90))
                             .strafeToLinearHeading(new Vector2d(-71,25),Math.toRadians(-80))
-                            .strafeToLinearHeading(new Vector2d(-68,3),Math.toRadians(-87))
+                            .strafeToLinearHeading(new Vector2d(-64.5,36.5),Math.toRadians(-98))
                             .build(),
                     Lift.AutoPos1(),
                     drive.actionBuilder(drive2.pose)
@@ -212,18 +216,17 @@ public class LakeviewAutoBlueRight extends LinearOpMode {
                             .build(),
                     intake.inverse(),
                     drive.actionBuilder(drive1.pose)
+                            .waitSeconds(0.5)
+                                    .build(),
+                    intake.stop(),
+                    drive.actionBuilder(drive1.pose)
                             .waitSeconds(1)
                             .strafeToLinearHeading(new Vector2d(38,-36),Math.toRadians(-90))
                             .build(),
-                    intake.Knock(),
-                    drive.actionBuilder(drive1.pose)
-                            .waitSeconds(1)
-                                    .build(),
-                    intake.start(),
                     drive.actionBuilder(drive2.pose)
                             .waitSeconds(1.5)
                             .strafeToLinearHeading(new Vector2d(41,60),Math.toRadians(-90))
-                            .strafeToLinearHeading(new Vector2d(6.5,79.5),Math.toRadians(-110))
+                            .strafeToLinearHeading(new Vector2d(2.75,79.5),Math.toRadians(-110))
                             .build(),
                     intake.stop(),
                     Lift.AutoPos1(),

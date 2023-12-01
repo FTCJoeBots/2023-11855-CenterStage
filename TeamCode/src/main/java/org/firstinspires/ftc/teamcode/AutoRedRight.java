@@ -121,38 +121,42 @@ public class AutoRedRight extends LinearOpMode {
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
                             .strafeToLinearHeading(new Vector2d(50,-12),Math.toRadians(90))
-                            .strafeToLinearHeading(new Vector2d(40,-12),Math.toRadians(90))
+                            .strafeToLinearHeading(new Vector2d(39,-12),Math.toRadians(90))
                             .build(),
                     intake.inverse(),
                     drive.actionBuilder(SpikeDrop.pose)
-                            .waitSeconds(0.75)
+                            .waitSeconds(0.5)
+                                    .build(),
+                    intake.stop(),
+                    drive.actionBuilder(SpikeDrop.pose)
+                            .waitSeconds(0.5)
                             .strafeToLinearHeading(new Vector2d(54.5,-25.5),Math.toRadians(100))
                             .build(),
                     Lift.AutoPos1(),
                     drive.actionBuilder(RightPDrop.pose)
-                            .waitSeconds(2)
+                            .waitSeconds(0.5)
                             .build(),
                     BucketArm.BucketDrop(),
                     drive.actionBuilder(RightPDrop.pose)
-                            .waitSeconds(4)
+                            .waitSeconds(1.25)
                             .build(),
                     Bucket.GateDrop(),
                     drive.actionBuilder(RightPDrop.pose)
-                            .waitSeconds(2)
+                            .waitSeconds(1)
                             .build(),
                     Bucket.CloseGate(),
                     drive.actionBuilder(RightPDrop.pose)
-                            .waitSeconds(2)
+                            .waitSeconds(1)
                             .build(),
                     BucketArm.BucketBack(),
                     drive.actionBuilder(RightPDrop.pose)
-                            .waitSeconds(3)
+                            .waitSeconds(1.25)
                             .build(),
                     lift.LefPos0(),
                     drive.actionBuilder(RightPDrop.pose)
-                            .waitSeconds(3)
-                            .strafeToLinearHeading(new Vector2d(50,-50),Math.toRadians(100))
-                            .strafeToLinearHeading(new Vector2d(75,-50),Math.toRadians(100))
+                            .waitSeconds(1)
+                            .strafeToLinearHeading(new Vector2d(51,-50),Math.toRadians(100))
+                            .strafeToLinearHeading(new Vector2d(76,-50),Math.toRadians(100))
                             .build()
 
             ));
@@ -165,8 +169,12 @@ public class AutoRedRight extends LinearOpMode {
                             .build(),
                    intake.inverse(),
                    drive.actionBuilder(SpikeCenter.pose)
-                           .waitSeconds(1)
-                           .strafeToLinearHeading(new Vector2d(63.25,-4),Math.toRadians(102))
+                           .waitSeconds(0.5)
+                                   .build(),
+                   intake.stop(),
+                   drive.actionBuilder(SpikeCenter.pose)
+                           .waitSeconds(0.5)
+                           .strafeToLinearHeading(new Vector2d(63.25,-5),Math.toRadians(102))
                            .build(),
                     Lift.AutoPos1(),
                     drive.actionBuilder(RightPDrop.pose)
@@ -212,6 +220,10 @@ public class AutoRedRight extends LinearOpMode {
                     intake.inverse(),
                     drive.actionBuilder(drive2.pose)
                             .waitSeconds(1)
+                                    .build(),
+                    intake.stop(),
+                    drive.actionBuilder(drive2.pose)
+                            .waitSeconds(0.25)
                             .strafeToLinearHeading(new Vector2d(66.5,28),Math.toRadians(100))
                             .build(),
                     Lift.AutoPos1(),
@@ -238,7 +250,7 @@ public class AutoRedRight extends LinearOpMode {
                     drive.actionBuilder(RightPDrop.pose)
                             .waitSeconds(0.5)
                             .strafeToLinearHeading(new Vector2d(50,-65),Math.toRadians(100))
-                            .strafeToLinearHeading(new Vector2d(75,-65),Math.toRadians(100))
+                            .strafeToLinearHeading(new Vector2d(52,-66),Math.toRadians(100))
                             .build()
 
 

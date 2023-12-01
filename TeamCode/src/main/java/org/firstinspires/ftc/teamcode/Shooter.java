@@ -13,10 +13,11 @@ public class Shooter {
 
     public void init(HardwareMap hardwareMap){
         Shooter = hardwareMap.get(Servo.class,"Shooter");
-        Shooter.setPosition(1);
+        Shooter.setPosition(0.8);
     }
 
     public void shoot(){
-        Shooter.setPosition(0.5);
+        Shooter.setPosition(0.2);
     }
+    public void Back(){Shooter.setPosition(0.8);}
 }

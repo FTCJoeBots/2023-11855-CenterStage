@@ -172,6 +172,7 @@ public class FirstTele extends OpMode{
 
             if (gamepad2.left_bumper) {
                 lift.lowerLiftManual();
+                lift.contorller();
             }
 
 
@@ -228,6 +229,8 @@ public class FirstTele extends OpMode{
 
             if(gamepad1.b){
                 shooter.shoot();
+            }else{
+                shooter.Back();
             }
 
         }
