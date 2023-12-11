@@ -21,7 +21,7 @@ public class TeleOpMecanum {
 
     public static double CM_PER_TICK = (2 * Math.PI * GEAR_RATIO * WHEEL_RADIUS) / TICKS_PER_ROTATION;
 
-    private double maxSpeed = 0.75;
+    private double maxSpeed = 0.25;
 
     private MatrixF conversion;
     private GeneralMatrixF encoderMatrix = new GeneralMatrixF(3, 1);

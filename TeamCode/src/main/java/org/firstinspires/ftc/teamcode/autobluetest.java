@@ -22,9 +22,9 @@ import java.util.Vector;
  *
  */
 
-@Autonomous(name="LakeviewBlueLeft", group="Pushbot")
+@Autonomous(name="autobluetest", group="Pushbot")
 
-public class LakeviewAutoBlueLeft extends LinearOpMode {
+public class autobluetest extends LinearOpMode {
 
     /* Declare OpMode members. */
     OpenCvCamera webcam;
@@ -103,41 +103,41 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
             Actions.runBlocking( new SequentialAction (
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-24,27.5),Math.toRadians(-75))
+                            .strafeToLinearHeading(new Vector2d(-26,27.5),Math.toRadians(-75))
                             .build(),
-                   intake.inverse(),
-                   drive.actionBuilder(drive1.pose)
-                           .waitSeconds(1)
-                           .build(),
+                    intake.inverse(),
+                    drive.actionBuilder(drive1.pose)
+                            .waitSeconds(1)
+                            .build(),
                     intake.stop(),
                     drive.actionBuilder(drive1.pose)
                             .waitSeconds(0.5)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-45.5,55),Math.toRadians(-97.5))
-                                    .build(),
+                            .strafeToLinearHeading(new Vector2d(-46,45.5),Math.toRadians(-97.5))
+                            .build(),
                     Lift.AutoPos1(),
                     drive.actionBuilder(drive3.pose)
-                            .waitSeconds(1)
+                            .waitSeconds(2)
                             .build(),
                     BucketArm.BucketDrop(),
                     drive.actionBuilder(drive3.pose)
-                            .waitSeconds(1.5)
+                            .waitSeconds(3)
                             .build(),
                     Bucket.GateDrop(),
                     drive.actionBuilder(drive3.pose)
-                            .waitSeconds(1)
+                            .waitSeconds(2)
                             .build(),
                     Bucket.CloseGate(),
                     drive.actionBuilder(drive3.pose)
-                            .waitSeconds(1)
+                            .waitSeconds(2)
                             .build(),
                     BucketArm.BucketBack(),
                     drive.actionBuilder(drive3.pose)
-                            .waitSeconds(1.5)
+                            .waitSeconds(3)
                             .build(),
                     lift.LefPos0(),
                     drive.actionBuilder(drive.pose)
-                            .waitSeconds(1)
+                            .waitSeconds(2)
                             .strafeToLinearHeading(new Vector2d(-110,30),Math.toRadians(-97))
                             .strafeToLinearHeading(new Vector2d(-110,49.5),Math.toRadians(-97))
                             .build()
@@ -158,33 +158,29 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
                             .build(),
                     intake.inverse(),
                     drive.actionBuilder(drive1.pose)
-                            .waitSeconds(0.5)
-                                    .build(),
-                    intake.stop(),
-                    drive.actionBuilder(drive1.pose)
                             .waitSeconds(1)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-41.5,45.5),Math.toRadians(-100))
+                            .strafeToLinearHeading(new Vector2d(-46,45.5),Math.toRadians(-107.5))
                             .build(),
                     Lift.AutoPos1(),
                     drive.actionBuilder(drive3.pose)
-                            .waitSeconds(1)
+                            .waitSeconds(2)
                             .build(),
                     BucketArm.BucketDrop(),
                     drive.actionBuilder(drive3.pose)
-                            .waitSeconds(1.5)
+                            .waitSeconds(3)
                             .build(),
                     Bucket.GateDrop(),
                     drive.actionBuilder(drive3.pose)
-                            .waitSeconds(1)
+                            .waitSeconds(2)
                             .build(),
                     Bucket.CloseGate(),
                     drive.actionBuilder(drive3.pose)
-                            .waitSeconds(0.5)
+                            .waitSeconds(2)
                             .build(),
                     BucketArm.BucketBack(),
                     drive.actionBuilder(drive3.pose)
-                            .waitSeconds(1.5)
+                            .waitSeconds(5)
                             .build(),
                     lift.LefPos0(),
                     drive.actionBuilder(drive.pose)
@@ -208,38 +204,34 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
                             .build(),
                     intake.inverse(),
                     drive.actionBuilder(drive2.pose)
-                            .waitSeconds(0.5)
-                            .build(),
-                    intake.stop(),
-                    drive.actionBuilder(drive2.pose)
                             .waitSeconds(1)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-21,54.75),Math.toRadians(-97))
+                            .strafeToLinearHeading(new Vector2d(-20.75,52),Math.toRadians(-97))
                             .build(),
-                   Lift.AutoPos1(),
+                    Lift.AutoPos1(),
                     drive.actionBuilder(drive3.pose)
-                            .waitSeconds(1)
+                            .waitSeconds(2)
                             .build(),
-                   BucketArm.BucketDrop(),
+                    BucketArm.BucketDrop(),
                     drive.actionBuilder(drive3.pose)
-                            .waitSeconds(1.5)
+                            .waitSeconds(3)
                             .build(),
                     Bucket.GateDrop(),
                     drive.actionBuilder(drive3.pose)
-                            .waitSeconds(1)
+                            .waitSeconds(2)
                             .build(),
                     Bucket.CloseGate(),
-                   drive.actionBuilder(drive3.pose)
-                           .waitSeconds(1)
-                           .build(),
+                    drive.actionBuilder(drive3.pose)
+                            .waitSeconds(2)
+                            .build(),
                     BucketArm.BucketBack(),
-                   drive.actionBuilder(drive3.pose)
-                           .waitSeconds(1.5)
-                           .build(),
-                   lift.LefPos0(),
+                    drive.actionBuilder(drive3.pose)
+                            .waitSeconds(3)
+                            .build(),
+                    lift.LefPos0(),
                     drive.actionBuilder(drive.pose)
-                            .waitSeconds(1)
-                            .strafeToLinearHeading(new Vector2d(-110,20),Math.toRadians(-97))
+                            .waitSeconds(2)
+                            .strafeToLinearHeading(new Vector2d(-110,30),Math.toRadians(-97))
                             .strafeToLinearHeading(new Vector2d(-110,50),Math.toRadians(-97))
                             .build()
 

@@ -15,6 +15,8 @@ public class PullUpArm {
     double HANGER_SPEED = 0.75;
     static boolean HangerDown = false;
 
+    private static final int PULLUP_UP_POSITION = -4500;
+    private static final int PULLUP_HANG_POSITION = -1100;
 
     public void init(HardwareMap hwMap) {
         Pullup = hwMap.get(DcMotor.class, "PullUp");
@@ -28,18 +30,23 @@ public class PullUpArm {
 
     public void contorller() {
         //Pullup.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Pullup.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //Pullup.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //Pullup.setPower(0.75);
     }
     public void controller2() {
         Pullup.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         Pullup.setPower(-0.85);
     }
+
+    public int getCurrentPosition() {
+        return Pullup.getCurrentPosition();
+    }
 /*
     public void raisePullUpManual() {
         lift_target_position = Pullup.getCurrentPosition() + 750;
 
     }
+
 
     public void lowerPullManual() {
         lift_target_position = Pullup.getCurrentPosition() - 750;
@@ -51,22 +58,25 @@ public class PullUpArm {
 
 
     public void resetHanger(){
-        pullup_target_position = 1500;
-        HangerDown=false;
+        pullup_target_position = 500;
+        Pullup.setPower(-1);
     }
     public void upHanger(){
         pullup_target_position = 4400;
-        HangerDown=true;
+Pullup.setPower(-1);
+
 
     }
 
-    public void PullUp(){
-pullup_target_position = Pullup.getCurrentPosition()+2000;
-Pullup.setPower(1);
+    public void Hang(){
+        //pullup_target_position = Pullup.getCurrentPosition()+1000;
+        Pullup.setTargetPosition(PULLUP_HANG_POSITION);
+        Pullup.setPower(1);
     }
 
-    public void PullDown(){
-        pullup_target_position = Pullup.getCurrentPosition()-2000;
+    public void Raise(){
+        //pullup_target_position = Pullup.getCurrentPosition()-1000;
+        Pullup.setTargetPosition(PULLUP_UP_POSITION);
         Pullup.setPower(-1);
     }
 
@@ -88,6 +98,8 @@ Pullup.setPower(1);
             upHanger();
         }
     }
+
+
 
 
 

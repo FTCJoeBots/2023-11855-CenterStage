@@ -7,7 +7,6 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -15,16 +14,14 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
-import java.util.Vector;
-
 /**
  * This is sample code used to explain how to write an autonomous code
  *
  */
 
-@Autonomous(name="LakeviewBlueLeft", group="Pushbot")
+@Autonomous(name="StartAutoBlueleft", group="Pushbot")
 
-public class LakeviewAutoBlueLeft extends LinearOpMode {
+public class StartStateAutoBlueLeft extends LinearOpMode {
 
     /* Declare OpMode members. */
     OpenCvCamera webcam;

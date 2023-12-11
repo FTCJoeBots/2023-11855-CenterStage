@@ -76,7 +76,6 @@ public class FirstTele extends OpMode{
     TeleOpMecanum mecanum = new TeleOpMecanum();
     JoeyIntake joey = new JoeyIntake();
     Lift lift = new Lift();
-    PullUpArm PullUp = new PullUpArm();
     BucketArm bucketArm = new BucketArm();
 
     PullUpArm pullup = new PullUpArm();
@@ -86,8 +85,8 @@ public class FirstTele extends OpMode{
     @Override
     public void init() {
         pullup.init(hardwareMap);
-        pullup.Pullup.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        pullup.Pullup.setPower(0);
+        //pullup.Pullup.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //pullup.Pullup.setPower(0);
         //pullup = hardwareMap.get(DcMotor.class,"PullUp");
         //pullup.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //pullup.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -97,7 +96,6 @@ public class FirstTele extends OpMode{
     mecanum.init(hardwareMap);
         joey.init(hardwareMap);
         lift.init(hardwareMap);
-        PullUp.init(hardwareMap);
 
         Bucket.init(hardwareMap);
 
@@ -176,19 +174,24 @@ public class FirstTele extends OpMode{
             }
 
 
+
+
+            //need this maybe
             if (gamepad1.dpad_up) {
-                pullup.PullUp();
-                pullup.contorller();
-            }else{
-                pullup.Pullup.setPower(0);
+                pullup.Raise();
+                //pullup.contorller();
+            } else if (gamepad1.dpad_down) {
+                pullup.Hang();
+            } else {
+                //pullup.stop();
             }
 
+            /*
             if(gamepad1.dpad_down){
                 pullup.PullDown();
-                pullup.contorller();
-            }else{
-                pullup.Pullup.setPower(0);
+                //pullup.contorller();
             }
+            */
 
             if (gamepad2.dpad_down) {
                 lift.RightLift_To_Position(0);
@@ -232,6 +235,10 @@ public class FirstTele extends OpMode{
             }else{
                 shooter.Back();
             }
+
+            telemetry.addData("Pull UP Target Pos", pullup.getHangerTargetPosition());
+            telemetry.addData("PullUp Current Pos:",pullup.getCurrentPosition());
+            telemetry.update();
 
         }
 

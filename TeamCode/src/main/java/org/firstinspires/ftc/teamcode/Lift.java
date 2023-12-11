@@ -16,12 +16,12 @@ public class Lift {
     static int LIFTMINIMMUM = 30;
     static int lift_target_position=0;
 
-    static int Rightlow = -400;
+    static int Rightlow = -550;
    static int Rightmed = -1490;
     static int Righthigh = -2246;
 
-    static int RightAuto = -630;
-    static int LeftAuto = -630;
+    static int RightAuto = -690;
+    static int LeftAuto = -690;
 
    static int LeftLow = -400;
 
@@ -79,6 +79,9 @@ public class Lift {
             case 3:
                 lift_target_position = Righthigh;
                 break;
+            case 4:
+                lift_target_position = RightAuto;
+                break;
 
 
         }
@@ -96,6 +99,9 @@ public class Lift {
                 break;
             case 3:
                 lift_target_position = Lefthigh;
+                break;
+            case 4:
+                lift_target_position = LeftAuto;
                 break;
 
 
@@ -121,13 +127,13 @@ public class Lift {
 
 
     public static class AutoliftToOne implements Action {
-        public void init() {LeftLift_To_Position(1);
-        RightLift_To_Position(1);}
+        public void init() {LeftLift_To_Position(4);
+        RightLift_To_Position(4);}
         public boolean loop(TelemetryPacket packet) {return false;}
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            LeftLift_To_Position(1);
-            RightLift_To_Position(1);
+            LeftLift_To_Position(4);
+            RightLift_To_Position(4);
             contorller();
             return false;}
     }
