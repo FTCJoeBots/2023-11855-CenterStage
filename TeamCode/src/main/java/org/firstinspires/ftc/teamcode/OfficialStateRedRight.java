@@ -18,9 +18,9 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
  *
  */
 
-@Autonomous(name="Lakeview red Right", group="Pushbot")
+@Autonomous(name="Official State Red Right", group="0")
 
-public class AutoRedRight extends LinearOpMode {
+public class OfficialStateRedRight extends LinearOpMode {
 
     /* Declare OpMode members. */
     OpenCvCamera webcam2;
@@ -130,7 +130,7 @@ public class AutoRedRight extends LinearOpMode {
                     intake.stop(),
                     drive.actionBuilder(SpikeDrop.pose)
                             .waitSeconds(0.5)
-                            .strafeToLinearHeading(new Vector2d(54.5,-25.5),Math.toRadians(100))
+                            .strafeToLinearHeading(new Vector2d(58,-25.5),Math.toRadians(100))
                             .build(),
                     Lift.AutoPos1(),
                     drive.actionBuilder(RightPDrop.pose)
@@ -174,7 +174,7 @@ public class AutoRedRight extends LinearOpMode {
                    intake.stop(),
                    drive.actionBuilder(SpikeCenter.pose)
                            .waitSeconds(0.5)
-                           .strafeToLinearHeading(new Vector2d(60.5,-5),Math.toRadians(110))
+                           .strafeToLinearHeading(new Vector2d(68,-5),Math.toRadians(110))
                            .build(),
                     Lift.AutoPos1(),
                     drive.actionBuilder(RightPDrop.pose)
@@ -215,7 +215,7 @@ public class AutoRedRight extends LinearOpMode {
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
                             .strafeToLinearHeading(new Vector2d(30,-10),Math.toRadians(-90))
-                            .strafeToLinearHeading(new Vector2d(27,8.5),Math.toRadians(90))
+                            .strafeToLinearHeading(new Vector2d(27,9.5),Math.toRadians(90))
                             .build(),
                     intake.inverse(),
                     drive.actionBuilder(drive2.pose)
@@ -224,7 +224,7 @@ public class AutoRedRight extends LinearOpMode {
                     intake.stop(),
                     drive.actionBuilder(drive2.pose)
                             .waitSeconds(0.25)
-                            .strafeToLinearHeading(new Vector2d(69.5,28),Math.toRadians(105))
+                            .strafeToLinearHeading(new Vector2d(75.5,28),Math.toRadians(105))
                             .build(),
                     Lift.AutoPos1(),
                     drive.actionBuilder(RightPDrop.pose)

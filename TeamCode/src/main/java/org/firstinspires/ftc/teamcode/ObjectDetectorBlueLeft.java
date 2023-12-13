@@ -25,7 +25,7 @@ public class ObjectDetectorBlueLeft extends OpenCvPipeline {
     //Rectangles for detecting if object of a certain color is in it and what percentage it is at
     static final Rect LEFT_ROI = new Rect(
             new Point(0, 80),
-            new Point(100, 220)
+            new Point(60, 220)
             //new Point(0, 120),
             //new Point(130, 300)
 

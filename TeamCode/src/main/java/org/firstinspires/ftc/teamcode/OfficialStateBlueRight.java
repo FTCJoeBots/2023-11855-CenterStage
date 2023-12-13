@@ -1,21 +1,14 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import androidx.annotation.NonNull;
-
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.Rotation2d;
 import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.Trajectory;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.checkerframework.checker.units.qual.C;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -26,9 +19,9 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
  *
  */
 
-@Autonomous(name="StateBlueRight", group="Pushbot")
+@Autonomous(name="Official State Blue Right", group="0")
 
-public class StartStateBlueRight extends LinearOpMode {
+public class OfficialStateBlueRight extends LinearOpMode {
 
     /* Declare OpMode members. */
     OpenCvCamera webcam;
@@ -252,7 +245,7 @@ public class StartStateBlueRight extends LinearOpMode {
                             .strafeToLinearHeading(new Vector2d(-50,-35),Math.toRadians(120))
                            .strafeToLinearHeading(new Vector2d(-52,-30),Math.toRadians(-75))
                             .strafeToLinearHeading(new Vector2d(-28,-40),Math.toRadians(-25))
-                            .strafeToLinearHeading(new Vector2d(-28,-48),Math.toRadians(-30))
+                            .strafeToLinearHeading(new Vector2d(-25,-48),Math.toRadians(-30))
                          //   .strafeToLinearHeading(new Vector2d(-5,-20),Math.toRadians(-75))
                            // .strafeToLinearHeading(new Vector2d(-7.5,-22.5),Math.toRadians(-75))
                             .build(),

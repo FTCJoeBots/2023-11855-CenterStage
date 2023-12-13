@@ -63,7 +63,7 @@ public class BucketArm {
 
     ///init to .4
     private static final double InBucket = 0;
-    private static final double OutBucket = 0.45;
+    private static final double OutBucket = 0.4;
 
     static boolean BucketInB = false;
 

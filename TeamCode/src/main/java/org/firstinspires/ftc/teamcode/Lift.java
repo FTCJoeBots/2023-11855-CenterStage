@@ -20,8 +20,8 @@ public class Lift {
    static int Rightmed = -1490;
     static int Righthigh = -2246;
 
-    static int RightAuto = -690;
-    static int LeftAuto = -690;
+    static int RightAuto = -500;
+    static int LeftAuto = -500;
 
    static int LeftLow = -400;
 

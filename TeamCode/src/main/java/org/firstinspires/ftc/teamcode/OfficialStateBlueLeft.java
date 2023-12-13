@@ -7,7 +7,6 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -15,16 +14,14 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
-import java.util.Vector;
-
 /**
  * This is sample code used to explain how to write an autonomous code
  *
  */
 
-@Autonomous(name="LakeviewBlueLeft", group="Pushbot")
+@Autonomous(name="Official State Blue Left", group="0")
 
-public class LakeviewAutoBlueLeft extends LinearOpMode {
+public class OfficialStateBlueLeft extends LinearOpMode {
 
     /* Declare OpMode members. */
     OpenCvCamera webcam;
@@ -103,7 +100,7 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
             Actions.runBlocking( new SequentialAction (
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-24,27.5),Math.toRadians(-75))
+                            .strafeToLinearHeading(new Vector2d(-19,40),Math.toRadians(-75))
                             .build(),
                    intake.inverse(),
                    drive.actionBuilder(drive1.pose)
@@ -113,7 +110,8 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
                     drive.actionBuilder(drive1.pose)
                             .waitSeconds(0.5)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-45.5,55),Math.toRadians(-97.5))
+                            .strafeToLinearHeading(new Vector2d(-42,50),Math.toRadians(-97.5))
+                            .strafeToLinearHeading(new Vector2d(-42,60),Math.toRadians(-97.5))
                                     .build(),
                     Lift.AutoPos1(),
                     drive.actionBuilder(drive3.pose)
@@ -154,7 +152,7 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
             Actions.runBlocking( new SequentialAction (
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-30,45),Math.toRadians(-75))
+                            .strafeToLinearHeading(new Vector2d(-30,50.5),Math.toRadians(-75))
                             .build(),
                     intake.inverse(),
                     drive.actionBuilder(drive1.pose)
@@ -164,7 +162,7 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
                     drive.actionBuilder(drive1.pose)
                             .waitSeconds(1)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-41.5,45.5),Math.toRadians(-100))
+                            .strafeToLinearHeading(new Vector2d(-38.5,50),Math.toRadians(-100))
                             .build(),
                     Lift.AutoPos1(),
                     drive.actionBuilder(drive3.pose)
@@ -189,8 +187,8 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
                     lift.LefPos0(),
                     drive.actionBuilder(drive.pose)
                             .waitSeconds(2)
-                            .strafeToLinearHeading(new Vector2d(-95,30),Math.toRadians(-97))
-                            .strafeToLinearHeading(new Vector2d(-95,49.5),Math.toRadians(-97))
+                            .strafeToLinearHeading(new Vector2d(-100,10),Math.toRadians(-97))
+                            .strafeToLinearHeading(new Vector2d(-100,30),Math.toRadians(-97))
                             .build()
                    /* drive.actionBuilder(drive1.pose)d
                             .waitSeconds(2)
@@ -204,7 +202,7 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
             Actions.runBlocking( new SequentialAction (
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-37.5,18),Math.toRadians(-75))
+                            .strafeToLinearHeading(new Vector2d(-34,18),Math.toRadians(-75))
                             .build(),
                     intake.inverse(),
                     drive.actionBuilder(drive2.pose)
@@ -214,7 +212,7 @@ public class LakeviewAutoBlueLeft extends LinearOpMode {
                     drive.actionBuilder(drive2.pose)
                             .waitSeconds(1)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-21,54.75),Math.toRadians(-97))
+                            .strafeToLinearHeading(new Vector2d(-27,60),Math.toRadians(-97))
                             .build(),
                    Lift.AutoPos1(),
                     drive.actionBuilder(drive3.pose)
