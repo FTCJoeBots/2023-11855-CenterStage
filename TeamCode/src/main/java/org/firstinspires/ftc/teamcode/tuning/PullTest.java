@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.tuning;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,7 +12,7 @@ import org.firstinspires.ftc.teamcode.JoeyIntake;
 import org.firstinspires.ftc.teamcode.Lift;
 import org.firstinspires.ftc.teamcode.PullUpArm;
 import org.firstinspires.ftc.teamcode.TeleOpMecanum;
-
+@Disabled
 @TeleOp(name = "PullUP Test",group="TeleOp")
 
 public class PullTest extends OpMode{

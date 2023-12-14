@@ -25,7 +25,7 @@ public class ObjectDetectorRed extends OpenCvPipeline {
     //Rectangles for detecting if object of a certain color is in it and what percentage it is at
     static final Rect LEFT_ROI = new Rect(
             new Point(0, 80),
-            new Point(80, 235)
+            new Point(60, 235)
             //new Point(0, 120),
             //new Point(130, 300)
 
@@ -39,7 +39,7 @@ public class ObjectDetectorRed extends OpenCvPipeline {
 
 
     //determines what percentage has to fill box
-    static double PERCENT_COLOR_THRESHOLD = 0.35;
+    static double PERCENT_COLOR_THRESHOLD = 0.4;
 
     public ObjectDetectorRed (Telemetry t) { telemetry = t; }
 

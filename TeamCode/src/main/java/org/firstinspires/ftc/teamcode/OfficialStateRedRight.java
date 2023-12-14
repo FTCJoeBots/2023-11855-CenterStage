@@ -121,7 +121,7 @@ public class OfficialStateRedRight extends LinearOpMode {
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
                             .strafeToLinearHeading(new Vector2d(50,-12),Math.toRadians(90))
-                            .strafeToLinearHeading(new Vector2d(39,-12),Math.toRadians(90))
+                            .strafeToLinearHeading(new Vector2d(36.5,-12),Math.toRadians(90))
                             .build(),
                     intake.inverse(),
                     drive.actionBuilder(SpikeDrop.pose)

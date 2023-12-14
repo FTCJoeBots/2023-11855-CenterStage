@@ -18,9 +18,9 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
  *
  */
 
-@Autonomous(name="State red left", group="0")
+@Autonomous(name="Offical State Red Left", group="0")
 
-public class AutoRedLeft extends LinearOpMode {
+public class OfficialStateRedLeft extends LinearOpMode {
 
     /* Declare OpMode members. */
     OpenCvCamera webcam2;
@@ -35,6 +35,8 @@ public class AutoRedLeft extends LinearOpMode {
         Pose2d SpikeRight = new Pose2d(-34, 39, Math.toRadians(-90));
         Pose2d RightStack = new Pose2d(0, 0, Math.toRadians(90));
         Pose2d SpikeCenter = new Pose2d(-21.5, 57.5, Math.toRadians(-90));
+        Pose2d SpikeLeft = new Pose2d(-30, 63, Math.toRadians(-90));
+
 
         Pose2d UsedPose;
 
@@ -43,6 +45,7 @@ public class AutoRedLeft extends LinearOpMode {
         BucketArm BucketArm = new BucketArm();
 
         MecanumDrive drive = new MecanumDrive(hardwareMap, startPose);
+        MecanumDrive LeftSpike = new MecanumDrive(hardwareMap, SpikeLeft);
         MecanumDrive CenterSpike = new MecanumDrive(hardwareMap,SpikeCenter);
         MecanumDrive RightSpike = new MecanumDrive(hardwareMap, SpikeRight);
         MecanumDrive StackRight = new MecanumDrive(hardwareMap, RightStack);
@@ -117,7 +120,7 @@ public class AutoRedLeft extends LinearOpMode {
             Actions.runBlocking( new SequentialAction(
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-21.5,57.5),Math.toRadians(-75))
+                            .strafeToLinearHeading(new Vector2d(-19.25,57.5),Math.toRadians(-75))
                             .build(),
                   intake.inverse(),
                     CenterSpike.actionBuilder(CenterSpike.pose)
@@ -130,9 +133,9 @@ public class AutoRedLeft extends LinearOpMode {
                                     .strafeToLinearHeading(new Vector2d(-7,57),Math.toRadians(90))
                                     .strafeToLinearHeading(new Vector2d(-7,65),Math.toRadians(110))
                                     .strafeToLinearHeading(new Vector2d(-15,61),Math.toRadians(120))
-                                    .strafeToLinearHeading(new Vector2d(-22,61),Math.toRadians(126))
+                                    .strafeToLinearHeading(new Vector2d(-20.5,61),Math.toRadians(135))
                             .build(),
-                    intake.start(),
+                    intake.Knock(),
                     StackRight.actionBuilder(StackRight.pose)
                             .waitSeconds(2)
                             .strafeToLinearHeading(new Vector2d(-5,-2),Math.toRadians(90))
@@ -142,7 +145,7 @@ public class AutoRedLeft extends LinearOpMode {
                             .waitSeconds(2)
                             .strafeToLinearHeading(new Vector2d(-100,17),Math.toRadians(90))
                             .strafeToLinearHeading(new Vector2d(-115,50),Math.toRadians(100))
-                            .strafeToLinearHeading(new Vector2d(-124.5,50),Math.toRadians(100))
+                            .strafeToLinearHeading(new Vector2d(-129.25,55),Math.toRadians(100))
                             .build(),
                     Lift.AutoPos1(),
                     drive.actionBuilder(drive.pose)
@@ -177,40 +180,51 @@ public class AutoRedLeft extends LinearOpMode {
                     drive.actionBuilder(drive.pose)
                             .setTangent(0)
                             .strafeToLinearHeading(new Vector2d(-32.5,37),Math.toRadians(-75))
-                            .strafeToLinearHeading(new Vector2d(-30,59),Math.toRadians(-75))
+                            .strafeToLinearHeading(new Vector2d(-30,63),Math.toRadians(-75))
                             .build(),
                     intake.inverse(),
-                    drive.actionBuilder(drive.pose)
+                    LeftSpike.actionBuilder(LeftSpike.pose)
                             .waitSeconds(1)
                             .build(),
                             intake.stop(),
-                            drive.actionBuilder(drive.pose)
+                            LeftSpike.actionBuilder(LeftSpike.pose)
                             .setTangent(0)
-                            .strafeToLinearHeading(new Vector2d(-8,40),Math.toRadians(-75))
-                            .strafeToLinearHeading(new Vector2d(-8,-60),Math.toRadians(-75))
-                            .strafeToLinearHeading(new Vector2d(-20,-68),Math.toRadians(97))
-                                    .strafeToLinearHeading(new Vector2d(-22.5,-89),Math.toRadians(105))
-                                    .strafeToLinearHeading(new Vector2d(-19,-89),Math.toRadians(105))
+                            .strafeToLinearHeading(new Vector2d(-15,63),Math.toRadians(-75))
+                                    .strafeToLinearHeading(new Vector2d(-0,45),Math.toRadians(90))
+                                    .strafeToLinearHeading(new Vector2d(-3,60),Math.toRadians(110))
+                                    .strafeToLinearHeading(new Vector2d(-22.5,52.5),Math.toRadians(110))
+                                    .build(),
+                    intake.Knock(),
+                    StackRight.actionBuilder(StackRight.pose)
+                            .waitSeconds(2)
+                            .strafeToLinearHeading(new Vector2d(-5,-2),Math.toRadians(90))
+                            .build(),
+                    intake.Knock(),
+                    StackRight.actionBuilder(StackRight.pose)
+                            .waitSeconds(2)
+                            .strafeToLinearHeading(new Vector2d(-100,17),Math.toRadians(90))
+                            .strafeToLinearHeading(new Vector2d(-115,35),Math.toRadians(100))
+                            .strafeToLinearHeading(new Vector2d(-127,47.5),Math.toRadians(95))
                             .build(),
                     Lift.AutoPos1(),
                     drive.actionBuilder(drive.pose)
-                            .waitSeconds(2)
+                            .waitSeconds(1)
                             .build(),
                     BucketArm.BucketDrop(),
                     drive.actionBuilder(drive.pose)
-                            .waitSeconds(3)
+                            .waitSeconds(1.5)
                             .build(),
                     Bucket.GateDrop(),
                     drive.actionBuilder(drive.pose)
-                            .waitSeconds(2)
+                            .waitSeconds(1)
                             .build(),
                     Bucket.CloseGate(),
                     drive.actionBuilder(StackRight.pose)
-                            .waitSeconds(2)
+                            .waitSeconds(1)
                             .build(),
                     BucketArm.BucketBack(),
                     drive.actionBuilder(StackRight.pose)
-                            .waitSeconds(1.25)
+                            .waitSeconds(1)
                             .build(),
                     lift.LefPos0(),
                     drive.actionBuilder(drive.pose)
@@ -241,7 +255,7 @@ public class AutoRedLeft extends LinearOpMode {
                             .strafeToLinearHeading(new Vector2d(-25,50),Math.toRadians(110))
                             .strafeToLinearHeading(new Vector2d(-28.5,48),Math.toRadians(110))
                             .build(),
-                    intake.start(),
+                    intake.Knock(),
                     StackRight.actionBuilder(StackRight.pose)
                             .waitSeconds(2)
                             .strafeToLinearHeading(new Vector2d(-5,-2),Math.toRadians(90))
@@ -251,7 +265,7 @@ public class AutoRedLeft extends LinearOpMode {
                             .waitSeconds(2)
                             .strafeToLinearHeading(new Vector2d(-100,17),Math.toRadians(90))
                             .strafeToLinearHeading(new Vector2d(-115,65),Math.toRadians(100))
-                            .strafeToLinearHeading(new Vector2d(-124.5,59.75),Math.toRadians(105))
+                            .strafeToLinearHeading(new Vector2d(-126,59.75),Math.toRadians(105))
                             .build(),
                     Lift.AutoPos1(),
                     drive.actionBuilder(drive.pose)
